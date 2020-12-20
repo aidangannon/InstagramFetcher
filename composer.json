@@ -1,0 +1,26 @@
+{
+    "name": "roboc/insta-fetcher",
+    "description": "a library that fetches audience insights from the facebook graph api",
+    "type": "library",
+    "authors": [
+        {
+            "name": "aidangannon",
+            "email": "63330150+aidangannon@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "symfony/http-client": "^5.2"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "FacebookGraph\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FacebookGraph\\Tests\\": "tests/"
+        }
+    }
+}
