@@ -1,6 +1,6 @@
 <?php
 
-namespace FacebookGraph\DataAccess\Curl;
+namespace InstaFetcher\DataAccess\Curl;
 
 class FacebookGraphCaller
 {

@@ -1,11 +1,14 @@
 <?php
 
-namespace FacebookGraph\DataAccess\DTOs;
+namespace InstaFetcher\DataAccess\DTOs;
+
+use \BadMethodCallException;
 
 class InsightDTO
 {
-    /**
-     * @Fiel
-     */
-    public string $insightType;
+    public array $value;
+
+    public static function hydrate(array $data): InsightDTO{
+        throw new BadMethodCallException("not implemented");
+    }
 }
