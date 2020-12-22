@@ -13,10 +13,10 @@ class InstaUserDTOTest extends TestCase
 
     public function test_hydrate_completely_allFieldsPopulated(){
 
-        //act
+        //arrange
         $data = ['id'=>'12322321','followers_count'=>100];
 
-        //arrange
+        //act
         $user = InstaUserDTO::hydrate($data);
 
         //assert
@@ -25,10 +25,11 @@ class InstaUserDTOTest extends TestCase
     }
 
     public function test_hydrate_id_idPopulated(){
-        //act
-        $data = ['id'=>'12322321'];
 
         //arrange
+        $data = ['id'=>'12322321'];
+
+        //act
         $user = InstaUserDTO::hydrate($data);
 
         //assert
@@ -37,10 +38,11 @@ class InstaUserDTOTest extends TestCase
     }
 
     public function test_hydrate_followers_followersPopulated(){
-        //act
-        $data = ['followers_count'=>100];
 
         //arrange
+        $data = ['followers_count'=>100];
+
+        //act
         $user = InstaUserDTO::hydrate($data);
 
         //assert
