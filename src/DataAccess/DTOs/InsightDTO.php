@@ -6,9 +6,16 @@ use \BadMethodCallException;
 
 class InsightDTO
 {
-    public array $value;
+    public ?array $value;
 
+    /**
+     * populates DTO from associative array
+     */
     public static function hydrate(array $data): InsightDTO{
-        throw new BadMethodCallException("not implemented");
+        $insight = new InsightDTO();
+
+        isset($data["value"]) ? $insight->value = $data["value"] : $insight->value = null;
+
+        return $insight;
     }
 }
