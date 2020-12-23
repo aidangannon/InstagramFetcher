@@ -8,6 +8,9 @@ use ReflectionProperty;
 
 class InstaUserDTO
 {
+    public const ID_FIELD = "id";
+    public const FOLLOWERS_FIELD = "followers_count";
+
     public ?string $id;
 
     public ?string $followersCount;
@@ -18,8 +21,8 @@ class InstaUserDTO
     public static function hydrate(array $data): InstaUserDTO{
         $user = new InstaUserDTO;
 
-        isset($data["id"]) ? $user->id = $data["id"] : $user->id = null;
-        isset($data["followers_count"]) ? $user->followersCount = $data["followers_count"] : $user->followersCount = null;
+        isset($data[InstaUserDTO::ID_FIELD]) ? $user->id = $data[InstaUserDTO::ID_FIELD] : $user->id = null;
+        isset($data[InstaUserDTO::FOLLOWERS_FIELD]) ? $user->followersCount = $data[InstaUserDTO::FOLLOWERS_FIELD] : $user->followersCount = null;
 
         return $user;
     }

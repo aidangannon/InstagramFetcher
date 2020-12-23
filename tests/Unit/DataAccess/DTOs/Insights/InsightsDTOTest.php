@@ -12,7 +12,7 @@ class InsightsDTOTest extends TestCase
 
         //arrange
         $expectedInsight = new InsightDTO();
-        $expectedInsight->value = ['value'=>['GB'=>1,'US'=>9]];
+        $expectedInsight->value = ['GB'=>1,'US'=>9];
         $expectedValues=[$expectedInsight];
         $data = ["name"=>"audience_country","values"=>[['value'=>['GB'=>1,'US'=>9]]]];
 
@@ -34,14 +34,14 @@ class InsightsDTOTest extends TestCase
 
         //assert
         $this->assertEquals('audience_country',$insights->name);
-        $this->assertNull($insights->values);
+        $this->assertEmpty($insights->values);
     }
 
     public function test_hydrateValues_valuesPopulated(){
 
         //arrange
         $expectedInsight = new InsightDTO();
-        $expectedInsight->value = ['value'=>['GB'=>1,'US'=>9]];
+        $expectedInsight->value = ['GB'=>1,'US'=>9];
         $expectedValues=[$expectedInsight];
         $data = ["values"=>[['value'=>['GB'=>1,'US'=>9]]]];
 

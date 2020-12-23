@@ -6,6 +6,8 @@ use \BadMethodCallException;
 
 class InsightDTO
 {
+    public const VALUE_FIELD = "value";
+
     public ?array $value;
 
     /**
@@ -14,7 +16,7 @@ class InsightDTO
     public static function hydrate(array $data): InsightDTO{
         $insight = new InsightDTO();
 
-        isset($data["value"]) ? $insight->value = $data["value"] : $insight->value = null;
+        isset($data[InsightDTO::VALUE_FIELD]) ? $insight->value = $data[InsightDTO::VALUE_FIELD] : $insight->value = null;
 
         return $insight;
     }
