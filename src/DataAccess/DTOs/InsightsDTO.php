@@ -18,6 +18,7 @@ class InsightsDTO
     public array $values=[];
 
     public static function hydrate(array $data): InsightsDTO{
+
         $insights = new InsightsDTO();
 
         if(isset($data[InsightsDTO::VALUES_FIELD])){

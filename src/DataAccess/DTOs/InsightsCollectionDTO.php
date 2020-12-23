@@ -7,12 +7,24 @@ use BadMethodCallException;
 
 class InsightsCollectionDTO
 {
+
+    public const DATA_FIELD = "data";
+
     /**
      * @var InsightsDTO[]
      */
-    public array $data;
+    public array $data = [];
 
     public static function hydrate(array $data): InsightsCollectionDTO{
-        throw new BadMethodCallException("not implemented");
+
+        $insightsCollection = new InsightsCollectionDTO();
+
+        if(isset($data[InsightsCollectionDTO::DATA_FIELD])){
+            foreach($data[InsightsCollectionDTO::DATA_FIELD] as $value){
+                array_push($insightsCollection->data,InsightsDTO::hydrate($value));
+            }
+        }
+
+        return $insightsCollection;
     }
 }
