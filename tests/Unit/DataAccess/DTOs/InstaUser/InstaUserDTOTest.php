@@ -11,7 +11,20 @@ use Webmozart\Assert\Assert;
 class InstaUserDTOTest extends TestCase
 {
 
-    public function test_hydrate_completely_allFieldsPopulated(){
+    public function test_hydrateWithExtraFields_allFieldsPopulated(){
+
+        //arrange
+        $data = ['id'=>'12322321','followers_count'=>100,'follows_count','name'=>'Aidan Gannon','username'=>'bigaidangan'];
+
+        //act
+        $user = InstaUserDTO::hydrate($data);
+
+        //assert
+        $this->assertEquals('12322321',$user->id);
+        $this->assertEquals(100,$user->followersCount);
+    }
+
+    public function test_hydrateCompletely_allFieldsPopulated(){
 
         //arrange
         $data = ['id'=>'12322321','followers_count'=>100];
@@ -24,7 +37,7 @@ class InstaUserDTOTest extends TestCase
         $this->assertEquals(100,$user->followersCount);
     }
 
-    public function test_hydrate_id_idPopulated(){
+    public function test_hydrateId_idPopulated(){
 
         //arrange
         $data = ['id'=>'12322321'];
@@ -37,7 +50,7 @@ class InstaUserDTOTest extends TestCase
         $this->assertNull($user->followersCount);
     }
 
-    public function test_hydrate_followers_followersPopulated(){
+    public function test_hydrateFollowers_followersPopulated(){
 
         //arrange
         $data = ['followers_count'=>100];
