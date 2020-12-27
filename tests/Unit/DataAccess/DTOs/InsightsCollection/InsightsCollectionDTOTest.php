@@ -6,6 +6,7 @@ use InstaFetcher\DataAccess\DTOs\InsightDTO;
 use InstaFetcher\DataAccess\DTOs\InsightsCollectionDTO;
 use InstaFetcher\DataAccess\DTOs\InsightsDTO;
 use InvalidArgumentException;
+use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
 class InsightsCollectionDTOTest extends TestCase
@@ -27,6 +28,14 @@ class InsightsCollectionDTOTest extends TestCase
 
         //assert
         $this->assertEquals($expectedData,$insightsCollection->data);
+    }
+
+    public function test_hydrateIncomplete_outOfBoundsExceptionThrown(){
+
+        $this->expectException(OutOfBoundsException::class);
+
+        //act
+        InsightsCollectionDTO::hydrate([]);
     }
 
     public function test_hydrate_dataIsNotTypeArray_illegalArgumentException(){

@@ -4,6 +4,7 @@ namespace InstaFetcherTests\Unit\DataAccess\DTOs\Insights;
 
 use InstaFetcher\DataAccess\DTOs\InsightDTO;
 use InstaFetcher\DataAccess\DTOs\InsightsDTO;
+use InvalidArgumentException;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
@@ -47,23 +48,32 @@ class InsightsDTOTest extends TestCase
         $this->assertEquals($expectedValues,$insights->values);
     }
 
-    public function test_onlyHydrateName_outOfBoundsExceptionThrown(){
+    /**
+     * @dataProvider hydrateIncomplete_dataProvider
+     */
+    public function test_hydrateIncomplete_outOfBoundsExceptionThrown(array $data){
 
         $this->expectException(OutOfBoundsException::class);
-
-        //arrange
-        $data = ["name"=>"audience_country"];
 
         //act
         InsightsDTO::hydrate($data);
     }
 
-    public function test_onlyHydrateValues_outOfBoundsExceptionThrown(){
+    public function hydrateIncomplete_dataProvider(){
 
-        $this->expectException(OutOfBoundsException::class);
+        return [
+            [["name"=>"audience_country"]],
+            [["values"=>[["value"=>[]]]]],
+            [[]]
+        ];
+    }
+
+    public function test_hydrate_valuesIsNotTypeArray_illegalArgumentException(){
+
+        $this->expectException(InvalidArgumentException::class);
 
         //arrange
-        $data = ["values"=>[['value'=>['GB'=>1,'US'=>9]]]];
+        $data = ["values"=>"random_string"];
 
         //act
         InsightsDTO::hydrate($data);

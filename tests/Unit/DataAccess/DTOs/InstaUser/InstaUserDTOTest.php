@@ -36,26 +36,24 @@ class InstaUserDTOTest extends TestCase
         $this->assertEquals(100,$user->followersCount);
     }
 
-    public function test_onlyHydrateId_outOfBoundsExceptionThrown(){
+    /**
+     * @dataProvider hydrateIncomplete_dataProvider
+     */
+    public function test_hydrateIncomplete_outOfBoundsExceptionThrown(array $data){
 
         $this->expectException(OutOfBoundsException::class);
-
-        //arrange
-        $data = ['id'=>'12322321'];
 
         //act
         InstaUserDTO::hydrate($data);
     }
 
-    public function test_onlyHydrateFollowers_outOfBoundsExceptionThrown(){
+    public function hydrateIncomplete_dataProvider(){
 
-        $this->expectException(OutOfBoundsException::class);
-
-        //arrange
-        $data = ['followers_count'=>100];
-
-        //act
-        InstaUserDTO::hydrate($data);
+        return [
+            [['id'=>'12322321']],
+            [['followers_count'=>100]],
+            [[]]
+        ];
     }
 
 }

@@ -3,6 +3,7 @@
 namespace InstaFetcherTests\Unit\DataAccess\DTOs\Insight;
 
 use InstaFetcher\DataAccess\DTOs\InsightDTO;
+use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
 class InsightDTOTest extends TestCase
@@ -18,6 +19,14 @@ class InsightDTOTest extends TestCase
 
         //assert
         $this->assertEquals(['GB'=>1,'US'=>9],$insight->value);
+    }
+
+    public function test_hydrateIncomplete_outOfBoundsExceptionThrown(){
+
+        $this->expectException(OutOfBoundsException::class);
+
+        //act
+        InsightDTO::hydrate([]);
     }
 
     public function test_hydrateCompletely_allFieldsPopulated(){
