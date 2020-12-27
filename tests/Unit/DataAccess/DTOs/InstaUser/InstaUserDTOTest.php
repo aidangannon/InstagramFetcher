@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace InstaFetcherTests\Unit\DataAccess\DTOs\InstaUser;
 
-use InstaFetcher\DataAccess\DTOs\InstaUserDTO;
+use InstaFetcher\DataAccess\DTOs\InstaUserDto;
+use InstaFetcher\DataAccess\DTOs\Mapper\InstaUserDtoMapper;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +17,7 @@ class InstaUserDTOTest extends TestCase
         $data = ['id'=>'12322321','followers_count'=>100,'follows_count','name'=>'Aidan Gannon','username'=>'aidan'];
 
         //act
-        $user = InstaUserDTO::hydrate($data);
+        $user = InstaUserDtoMapper::hydrate($data);
 
         //assert
         $this->assertEquals('12322321',$user->id);
@@ -29,7 +30,7 @@ class InstaUserDTOTest extends TestCase
         $data = ['id'=>'12322321','followers_count'=>100];
 
         //act
-        $user = InstaUserDTO::hydrate($data);
+        $user = InstaUserDtoMapper::hydrate($data);
 
         //assert
         $this->assertEquals('12322321',$user->id);
@@ -44,7 +45,7 @@ class InstaUserDTOTest extends TestCase
         $this->expectException(OutOfBoundsException::class);
 
         //act
-        InstaUserDTO::hydrate($data);
+        InstaUserDtoMapper::hydrate($data);
     }
 
     public function hydrateIncomplete_dataProvider(){
