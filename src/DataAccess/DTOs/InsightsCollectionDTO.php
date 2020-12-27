@@ -19,10 +19,8 @@ class InsightsCollectionDTO
 
         $insightsCollection = new InsightsCollectionDTO();
 
-        if(isset($data[InsightsCollectionDTO::DATA_FIELD])){
-            foreach($data[InsightsCollectionDTO::DATA_FIELD] as $value){
-                array_push($insightsCollection->data,InsightsDTO::hydrate($value));
-            }
+        foreach($data[InsightsCollectionDTO::DATA_FIELD] as $value){
+            array_push($insightsCollection->data,InsightsDTO::hydrate($value));
         }
 
         return $insightsCollection;

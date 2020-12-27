@@ -5,6 +5,7 @@ namespace InstaFetcherTests\Unit\DataAccess\DTOs\InsightsCollection;
 use InstaFetcher\DataAccess\DTOs\InsightDTO;
 use InstaFetcher\DataAccess\DTOs\InsightsCollectionDTO;
 use InstaFetcher\DataAccess\DTOs\InsightsDTO;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class InsightsCollectionDTOTest extends TestCase
@@ -26,5 +27,16 @@ class InsightsCollectionDTOTest extends TestCase
 
         //assert
         $this->assertEquals($expectedData,$insightsCollection->data);
+    }
+
+    public function test_hydrate_dataIsNotTypeArray_illegalArgumentException(){
+
+        $this->expectException(InvalidArgumentException::class);
+
+        //arrange
+        $data = ["data"=>"random_string"];
+
+        //act
+        InsightsCollectionDTO::hydrate($data);
     }
 }

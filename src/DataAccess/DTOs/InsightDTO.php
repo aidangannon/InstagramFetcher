@@ -8,7 +8,7 @@ class InsightDTO
 {
     public const VALUE_FIELD = "value";
 
-    public ?array $value;
+    public array $value;
 
     /**
      * populates DTO from associative array
@@ -16,7 +16,7 @@ class InsightDTO
     public static function hydrate(array $data): InsightDTO{
         $insight = new InsightDTO();
 
-        isset($data[InsightDTO::VALUE_FIELD]) ? $insight->value = $data[InsightDTO::VALUE_FIELD] : $insight->value = null;
+        $insight->value = $data[InsightDTO::VALUE_FIELD];
 
         return $insight;
     }

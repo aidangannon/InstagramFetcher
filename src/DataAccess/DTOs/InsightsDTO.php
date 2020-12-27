@@ -10,7 +10,7 @@ class InsightsDTO
     public const VALUES_FIELD = "values";
     public const NAME_FIELD = "name";
 
-    public ?string $name;
+    public string $name;
 
     /**
      * @var InsightDTO[]
@@ -21,13 +21,11 @@ class InsightsDTO
 
         $insights = new InsightsDTO();
 
-        if(isset($data[InsightsDTO::VALUES_FIELD])){
-            foreach($data[InsightsDTO::VALUES_FIELD] as $value){
-                array_push($insights->values,InsightDTO::hydrate($value));
-            }
+        foreach($data[InsightsDTO::VALUES_FIELD] as $value){
+            array_push($insights->values,InsightDTO::hydrate($value));
         }
 
-        isset($data[InsightsDTO::NAME_FIELD]) ? $insights->name = $data[InsightsDTO::NAME_FIELD] : $insights->name = null;
+        $insights->name = $data[InsightsDTO::NAME_FIELD];
 
         return $insights;
     }

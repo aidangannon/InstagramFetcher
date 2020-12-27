@@ -7,10 +7,10 @@ namespace InstaFetcher\DomainModels\Permission;
  * represents permissions belonging to a facebook graph api session,
  * all permissions have to be unique
  */
-class SessionPermissionCollection
+class SessionPermissionCollectionModel
 {
     /**
-     * @var IPermission[]
+     * @var IPermissionModel[]
      */
     private array $permissions;
 }

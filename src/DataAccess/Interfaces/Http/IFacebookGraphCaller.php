@@ -3,7 +3,7 @@
 
 namespace InstaFetcher\DataAccess\Interfaces\Http;
 
-use InstaFetcher\DomainModels\Session\InstaSession;
+use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;
 
 /**
  * generic http graph API communicator
@@ -13,10 +13,10 @@ use InstaFetcher\DomainModels\Session\InstaSession;
 interface IFacebookGraphCaller
 {
     /**
-     * gets insta data by iterating through and inspecting each fb page (slower)
+     * gets all facebook page's instagram account for the authorized user
      * returns array from json response
      */
-    public function get_instaInfoFromFbUser(string $instaHandle, string $token): array;
+    public function get_instaAccounts(string $token): array;
 
     /**
      * gets insta data from id
