@@ -94,5 +94,31 @@ class When_Handle_Is_Invalid_Test extends InstaUserRepositoryTestCase
         $this->handle=$data["handle"];
         $this->pages=$data["pages"];
     }
-    
+
+    /**
+     * @test
+     */
+    public function Then_InstaUserNotFound_Exception_Should_Be_Thrown(){
+        self::assertNotNull($this->exception);
+        self::assertTrue(self::isInstanceOf(InstaUserNotFound::class));
+    }
+
+    /**
+     * @test
+     */
+    public function Then_Token_Should_Be_Received_From_Facebook_Session(){
+        $this->mockSession
+            ->shouldHaveReceived("getToken");
+    }
+
+    /**
+     * @test
+     */
+    public function Then_Insta_Accounts_Should_Be_Fetched_From_Session_Token(){
+        $this->mockPageDao
+            ->shouldHaveReceived("getInstaAccounts")
+            ->once();
+        $this->mockPageDao
+            ->shouldHaveReceived("getInstaAccounts",[$this->token]);
+    }
 }
