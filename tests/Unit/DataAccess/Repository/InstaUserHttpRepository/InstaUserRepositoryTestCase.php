@@ -1,7 +1,7 @@
 <?php
 
 
-namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest;
+namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository;
 
 
 use InstaFetcher\DataAccess\Http\Repository\InstaUserHttpRepository;

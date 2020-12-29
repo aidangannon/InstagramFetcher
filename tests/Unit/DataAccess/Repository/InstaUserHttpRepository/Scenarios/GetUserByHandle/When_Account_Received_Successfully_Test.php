@@ -1,43 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\GetUserByHandle;
+namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle;
 
 
-use Exception;
 use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
-use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
-use InstaFetcher\DataAccess\Http\Repository\InstaUserHttpRepository;
-use InstaFetcher\DataAccess\Interfaces\Http\Dao\IFacebookPageDao;
-use InstaFetcher\DataAccess\Interfaces\Http\Dao\IInstaUserDao;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
-use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\InstaUserRepositoryTestCase;
-use Mockery;
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\TestResult;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\Given_User_Tries_To_Get_User_By_Handle;
 
-class When_Account_Received_Successfully_Test extends InstaUserRepositoryTestCase
+class When_Account_Received_Successfully_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
-
-    private string $token;
-    private string $handle;
-    private FacebookPagesDto $pages;
-
-    private InstaUserModel $user;
-    private Exception $exception;
-
-    public function when()
-    {
-        try {
-            $this->user = $this->sut->getByHandle($this->handle);
-        }
-        catch(Exception $e){
-            $this->exception = $e;
-        }
-    }
+    protected string $token;
+    protected FacebookPagesDto $pages;
 
     public function setUpMocks()
     {
@@ -140,28 +116,5 @@ class When_Account_Received_Successfully_Test extends InstaUserRepositoryTestCas
      */
     public function Then_InstaUserNotFound_Exception_Is_Not_Thrown(){
         self::assertFalse(isset($this->exception));
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Token_Should_Be_Received_From_Facebook_Session()
-    {
-        $this->mockSession
-            ->shouldHaveReceived("getToken");
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Insta_Accounts_Should_Be_Fetched_From_Session_Token()
-    {
-        $this->mockPageDao
-            ->shouldHaveReceived("getInstaAccounts")
-            ->once();
-        $this->mockPageDao
-            ->shouldHaveReceived("getInstaAccounts", [$this->token]);
     }
 }
