@@ -10,23 +10,24 @@ use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
+use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\InstaUserRepositoryTestCase;
 use PHPUnit\Framework\TestCase;
 
-class When_Handle_Is_Invalid_Test extends InstaUserRepositoryTestCase
+class When_Account_Received_Successfully_Test extends InstaUserRepositoryTestCase
 {
 
     private string $token;
     private string $handle;
     private FacebookPagesDto $pages;
 
-    private Exception $exception;
     private InstaUserModel $user;
+    private Exception $exception;
 
     public function when()
     {
         try {
-            $this->user = $this->sut->getByHandle($this->handle);
+            $user = $this->sut->getByHandle($this->handle);
         }
         catch(Exception $e){
             $this->exception = $e;
@@ -57,7 +58,7 @@ class When_Handle_Is_Invalid_Test extends InstaUserRepositoryTestCase
                             new InstaUserDto(
                                 "22222",
                                 100,
-                                "test1"
+                                "example_handle"
                             )
                         )
                     ]
@@ -73,7 +74,7 @@ class When_Handle_Is_Invalid_Test extends InstaUserRepositoryTestCase
                             new InstaUserDto(
                                 "22222",
                                 100,
-                                "test1"
+                                "example_handle"
                             )
                         ),
                         new FacebookPageDto(
@@ -86,31 +87,55 @@ class When_Handle_Is_Invalid_Test extends InstaUserRepositoryTestCase
                         )
                     ]
                 )
+            ],
+            [
+                "token"=>"00000",
+                "handle"=>"example_handle",
+                "pages"=>new FacebookPagesDto(
+                    [
+                        new FacebookPageDto(
+                            "11111",
+                            new InstaUserDto(
+                                "444444",
+                                100,
+                                "test1"
+                            )
+                        ),
+                        new FacebookPageDto(
+                            "33333",
+                            new InstaUserDto(
+                                "22222",
+                                100,
+                                "example_handle"
+                            )
+                        )
+                    ]
+                )
             ]
         ];
     }
 
     public function initFixture(array $data)
     {
-        $this->token=$data["token"];
-        $this->handle=$data["handle"];
-        $this->pages=$data["pages"];
+        $this->token = $data["token"];
+        $this->handle = $data["handle"];
+        $this->pages = $data["pages"];
     }
 
     /**
      * @test
      */
-    public function Then_User_Should_Not_Be_Returned()
+    public function Then_User_Returned_Should_Equal_The_Retrieved_User()
     {
-        self::assertNull($this->user);
+        self::assertNotNull($this->user);
+        self::assertEquals(new InstaUserModel("22222",100,"example_handle"),$this->user);
     }
 
     /**
      * @test
      */
-    public function Then_InstaUserNotFound_Exception_Should_Be_Thrown(){
-        self::assertNotNull($this->exception);
-        self::assertTrue($this->exception instanceof InstaUserNotFound);
+    public function Then_InstaUserNotFound_Exception_Is_Not_Thrown(){
+        self::assertNull($this->exception);
     }
 
     /**

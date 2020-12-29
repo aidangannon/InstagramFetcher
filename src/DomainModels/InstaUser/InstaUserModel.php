@@ -9,11 +9,28 @@ use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;
 class InstaUserModel
 {
     private string $id;
+    private int $followers;
+    private string $handle;
     private FacebookGraphSessionModel $session;
 
-    public function __construct(string $id, FacebookGraphSessionModel $session){
-        $this->id=$id;
-        $this->session=$session;
+    public function __construct(string $id, int $followers, string $handle, ?FacebookGraphSessionModel $session=null)
+    {
+        $this->id = $id;
+        $this->followers = $followers;
+        $this->handle = $handle;
+        if (isset($session)){
+            $this->session = $session;
+        }
+    }
+
+    public function getFollowers(): int
+    {
+        return $this->followers;
+    }
+
+    public function getHandle(): string
+    {
+        return $this->handle;
     }
 
     public function getId(): string{

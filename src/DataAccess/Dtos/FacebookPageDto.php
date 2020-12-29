@@ -10,9 +10,9 @@ class FacebookPageDto
     public const INSTA_USER_FIELD = "instagram_business_account";
 
     public string $id;
-    public InstaUserDto $instaUser;
+    public ?InstaUserDto $instaUser;
 
-    public function __construct(string $id, InstaUserDto $instaUser)
+    public function __construct(string $id, ?InstaUserDto $instaUser=null)
     {
         $this->id = $id;
         $this->instaUser = $instaUser;

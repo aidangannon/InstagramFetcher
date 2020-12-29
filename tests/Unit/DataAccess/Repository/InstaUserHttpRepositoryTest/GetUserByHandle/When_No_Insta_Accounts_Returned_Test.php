@@ -9,10 +9,11 @@ use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
+use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\InstaUserRepositoryTestCase;
 use PHPUnit\Framework\TestCase;
 
-class When_No_Insta_Accounts_Returned extends InstaUserRepositoryTestCase
+class When_No_Insta_Accounts_Returned_Test extends InstaUserRepositoryTestCase
 {
 
     private string $token;
@@ -20,11 +21,12 @@ class When_No_Insta_Accounts_Returned extends InstaUserRepositoryTestCase
     private FacebookPagesDto $pages;
 
     private Exception $exception;
+    private InstaUserModel $user;
 
     public function when()
     {
         try {
-            $this->sut->getByHandle($this->handle);
+            $this->user = $this->sut->getByHandle($this->handle);
         } catch (Exception $e) {
             $this->exception = $e;
         }
@@ -87,10 +89,18 @@ class When_No_Insta_Accounts_Returned extends InstaUserRepositoryTestCase
     /**
      * @test
      */
+    public function Then_User_Should_Not_Be_Returned()
+    {
+        self::assertNull($this->user);
+    }
+
+    /**
+     * @test
+     */
     public function Then_InstaUserNotFound_Exception_Should_Be_Thrown()
     {
         self::assertNotNull($this->exception);
-        self::assertTrue(self::isInstanceOf(InstaUserNotFound::class));
+        self::assertTrue($this->exception instanceof InstaUserNotFound);
     }
 
     /**
