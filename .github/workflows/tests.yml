@@ -1,0 +1,24 @@
+name: unit-tests
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches:
+      - '*'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run unit tests
+        run: vendor/bin/phing unit_tests
