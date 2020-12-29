@@ -56,12 +56,26 @@ abstract class InstaUserRepositoryTestCase extends TestCase
         return $result;
     }
 
+    /**
+     * runs the sut method to be tested
+     * usually for capturing the return type, and any exceptions thrown
+     */
     public abstract function when();
 
+    /**
+     * sets up mocks for each test scenario
+     */
     public abstract function setUpMocks();
 
+    /**
+     * returns an list of objects,
+     * each object represents a list of fields for a test
+     */
     public abstract function fixtureProvider(): array;
 
+    /**
+     * maps the fixture to fields in test scenario
+     */
     public abstract function initFixture(array $data);
 
     protected function tearDown(): void

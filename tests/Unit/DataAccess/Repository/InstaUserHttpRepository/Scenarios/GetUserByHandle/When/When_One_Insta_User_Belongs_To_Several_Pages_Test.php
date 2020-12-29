@@ -1,18 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle;
+namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\When;
 
 
 use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\Given_User_Tries_To_Get_User_By_Handle;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 
-class When_One_Account_Belongs_To_Several_Pages_Test extends Given_User_Tries_To_Get_User_By_Handle
+class When_One_Insta_User_Belongs_To_Several_Pages_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
-    protected string $token;
     protected FacebookPagesDto $pages;
 
     public function setUpMocks()
@@ -28,27 +27,22 @@ class When_One_Account_Belongs_To_Several_Pages_Test extends Given_User_Tries_To
 
     public function fixtureProvider(): array
     {
+        $handle = "example_handle";
+        $user = new InstaUserDto("22222", 100, $handle);
+
         return [
             [
                 "token" => "00000",
-                "handle" => "example_handle",
+                "handle" => $handle,
                 "pages" => new FacebookPagesDto(
                     [
                         new FacebookPageDto(
                             "11111",
-                            new InstaUserDto(
-                                "22222",
-                                100,
-                                "example_handle"
-                            )
+                            $user
                         ),
                         new FacebookPageDto(
                             "33333",
-                            new InstaUserDto(
-                                "22222",
-                                100,
-                                "example_handle"
-                            )
+                            $user
                         )
                     ]
                 )

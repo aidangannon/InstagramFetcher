@@ -1,7 +1,7 @@
 <?php
 
 
-namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios;
+namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle;
 
 
 use Exception;
@@ -10,6 +10,7 @@ use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\InstaUs
 
 abstract class Given_User_Tries_To_Get_User_By_Handle extends InstaUserRepositoryTestCase
 {
+    protected string $token;
     protected string $handle;
     protected Exception $exception;
     protected InstaUserModel $user;

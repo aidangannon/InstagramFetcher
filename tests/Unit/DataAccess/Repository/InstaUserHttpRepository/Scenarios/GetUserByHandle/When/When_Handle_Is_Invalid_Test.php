@@ -1,18 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle;
+namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\When;
 
 
 use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\Given_User_Tries_To_Get_User_By_Handle;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 
 class When_Handle_Is_Invalid_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
-    protected string $token;
     protected FacebookPagesDto $pages;
 
     public function setUpMocks()
