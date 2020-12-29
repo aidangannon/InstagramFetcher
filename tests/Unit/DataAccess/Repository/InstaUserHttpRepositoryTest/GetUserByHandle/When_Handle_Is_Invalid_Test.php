@@ -1,49 +1,98 @@
 <?php
-
+declare(strict_types=1);
 
 namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\GetUserByHandle;
 
 
-use InstaFetcher\DataAccess\DTOs\FacebookPageDto;
-use InstaFetcher\DataAccess\Http\Curl\FacebookGraphCaller;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\Given_User_Gets_Insta_User_By_Handle;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\InstaUserHttpRepositoryTestCase;
-use PHPUnit\Framework\TestResult;
+use Exception;
+use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
+use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
+use InstaFetcher\DataAccess\Dtos\InstaUserDto;
+use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\InstaUserRepositoryTestCase;
+use PHPUnit\Framework\TestCase;
 
-class When_Handle_Is_Invalid_Test extends Given_User_Gets_Insta_User_By_Handle
+class When_Handle_Is_Invalid_Test extends InstaUserRepositoryTestCase
 {
 
     private string $token;
     private string $handle;
-    private array $getInstaAccountsResponse;
+    private FacebookPagesDto $pages;
 
-    protected function setUp(): void
+    private Exception $exception;
+
+    public function when()
     {
-        $this->mockFacebookGraphCaller
-            ->method("get_instaAccounts")
-            ->willReturn($this->getInstaAccountsResponse);
-        $mockPage1 = $this
-            ->createMock(FacebookPageDto::class);
-        $mockPage1->method("hydrate")->willReturn($mockPage1);
-
-        parent::setUp();
+        try {
+            $this->sut->getByHandle($this->handle);
+        }
+        catch(Exception $e){
+            $this->exception = $e;
+        }
     }
 
-    function testFixture(): array
+    public function setUpMocks()
+    {
+        $this->mockSession
+            ->shouldReceive("getToken")
+            ->andReturns($this->token);
+        $this->mockPageDao
+            ->shouldReceive("getInstaAccounts")
+            ->with($this->token)
+            ->andReturns($this->pages);
+    }
+
+    public function fixtureProvider(): array
     {
         return [
             [
-                "token"=>"example_token_1",
-                "handle"=>"example_handle_1",
-                "getInstaAccountsResponse"
+                "token"=>"00000",
+                "handle"=>"example_handle",
+                "pages"=>new FacebookPagesDto(
+                    [
+                        new FacebookPageDto(
+                            "11111",
+                            new InstaUserDto(
+                                "22222",
+                                100,
+                                "test1"
+                            )
+                        )
+                    ]
+                )
+            ],
+            [
+                "token"=>"00000",
+                "handle"=>"example_handle",
+                "pages"=>new FacebookPagesDto(
+                    [
+                        new FacebookPageDto(
+                            "11111",
+                            new InstaUserDto(
+                                "22222",
+                                100,
+                                "test1"
+                            )
+                        ),
+                        new FacebookPageDto(
+                            "33333",
+                            new InstaUserDto(
+                                "444444",
+                                100,
+                                "test2"
+                            )
+                        )
+                    ]
+                )
             ]
         ];
     }
 
-    function initFixture(array $testCaseData)
+    public function initFixture(array $data)
     {
-        $this->token = $testCaseData["token"];
-        $this->handle = $testCaseData["handle"];
-        $this->getInstaAccountsResponse = $testCaseData["getInstaAccountsResponse"];
+        $this->token=$data["token"];
+        $this->handle=$data["handle"];
+        $this->pages=$data["pages"];
     }
+    
 }

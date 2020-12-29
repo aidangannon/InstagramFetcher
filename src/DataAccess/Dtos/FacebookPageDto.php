@@ -1,7 +1,7 @@
 <?php
 
 
-namespace InstaFetcher\DataAccess\DTOs;
+namespace InstaFetcher\DataAccess\Dtos;
 
 
 class FacebookPageDto
@@ -11,5 +11,12 @@ class FacebookPageDto
 
     public string $id;
     public InstaUserDto $instaUser;
+
+    public function __construct(string $id, InstaUserDto $instaUser)
+    {
+        $this->id = $id;
+        $this->instaUser = $instaUser;
+    }
+
 
 }

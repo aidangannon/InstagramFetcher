@@ -5,9 +5,8 @@ namespace InstaFetcher\DataAccess\Http\Repository;
 
 
 use BadMethodCallException;
-use InstaFetcher\DataAccess\DTOs\Mapper\FacebookPageDtoMapper;
-use InstaFetcher\DataAccess\DTOs\Mapper\FacebookPagesDtoMapper;
-use InstaFetcher\DataAccess\Interfaces\Http\IFacebookGraphCaller;
+use InstaFetcher\DataAccess\Interfaces\Http\Dao\IFacebookPageDao;
+use InstaFetcher\DataAccess\Interfaces\Http\Dao\IInstaUserDao;
 use InstaFetcher\DataAccess\Interfaces\Repository\IInstaUserRepository;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
 use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;
@@ -18,18 +17,15 @@ use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;
 class InstaUserHttpRepository implements IInstaUserRepository
 {
 
-    private IFacebookGraphCaller $caller;
     private FacebookGraphSessionModel $session;
-    private FacebookPagesDtoMapper $pagesDtoMapper;
+    private IFacebookPageDao $pageDao;
+    private IInstaUserDao $userDao;
 
-    public function __construct(
-        IFacebookGraphCaller $caller,
-        FacebookGraphSessionModel $session,
-        FacebookPagesDtoMapper $pagesDtoMapper
-    ){
-        $this->caller=$caller;
-        $this->session=$session;
-        $this->pagesDtoMapper=$pagesDtoMapper;
+    public function __construct(FacebookGraphSessionModel $session, IFacebookPageDao $pagesDao, IInstaUserDao $userDao)
+    {
+        $this->session = $session;
+        $this->pageDao = $pagesDao;
+        $this->userDao = $userDao;
     }
 
     public function getByHandle(string $handle): InstaUserModel
