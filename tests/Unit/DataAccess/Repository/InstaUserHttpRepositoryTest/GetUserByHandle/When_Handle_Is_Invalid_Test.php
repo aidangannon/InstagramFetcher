@@ -102,18 +102,18 @@ class When_Handle_Is_Invalid_Test extends InstaUserRepositoryTestCase
      */
     public function Then_User_Should_Not_Be_Returned()
     {
-        self::assertNull($this->user);
+        self::assertFalse(isset($this->user));
     }
 
     /**
      * @test
      */
     public function Then_InstaUserNotFound_Exception_Should_Be_Thrown(){
-        self::assertNotNull($this->exception);
         self::assertTrue($this->exception instanceof InstaUserNotFound);
     }
 
     /**
+     * @doesNotPerformAssertions
      * @test
      */
     public function Then_Token_Should_Be_Received_From_Facebook_Session()
@@ -123,6 +123,7 @@ class When_Handle_Is_Invalid_Test extends InstaUserRepositoryTestCase
     }
 
     /**
+     * @doesNotPerformAssertions
      * @test
      */
     public function Then_Insta_Accounts_Should_Be_Fetched_From_Session_Token()

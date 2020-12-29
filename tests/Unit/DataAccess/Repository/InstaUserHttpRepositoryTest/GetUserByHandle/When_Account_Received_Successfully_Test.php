@@ -9,10 +9,15 @@ use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
+use InstaFetcher\DataAccess\Http\Repository\InstaUserHttpRepository;
+use InstaFetcher\DataAccess\Interfaces\Http\Dao\IFacebookPageDao;
+use InstaFetcher\DataAccess\Interfaces\Http\Dao\IInstaUserDao;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
 use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepositoryTest\InstaUserRepositoryTestCase;
+use Mockery;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestResult;
 
 class When_Account_Received_Successfully_Test extends InstaUserRepositoryTestCase
 {
@@ -27,7 +32,7 @@ class When_Account_Received_Successfully_Test extends InstaUserRepositoryTestCas
     public function when()
     {
         try {
-            $user = $this->sut->getByHandle($this->handle);
+            $this->user = $this->sut->getByHandle($this->handle);
         }
         catch(Exception $e){
             $this->exception = $e;
@@ -127,7 +132,6 @@ class When_Account_Received_Successfully_Test extends InstaUserRepositoryTestCas
      */
     public function Then_User_Returned_Should_Equal_The_Retrieved_User()
     {
-        self::assertNotNull($this->user);
         self::assertEquals(new InstaUserModel("22222",100,"example_handle"),$this->user);
     }
 
@@ -135,10 +139,11 @@ class When_Account_Received_Successfully_Test extends InstaUserRepositoryTestCas
      * @test
      */
     public function Then_InstaUserNotFound_Exception_Is_Not_Thrown(){
-        self::assertNull($this->exception);
+        self::assertFalse(isset($this->exception));
     }
 
     /**
+     * @doesNotPerformAssertions
      * @test
      */
     public function Then_Token_Should_Be_Received_From_Facebook_Session()
@@ -148,6 +153,7 @@ class When_Account_Received_Successfully_Test extends InstaUserRepositoryTestCas
     }
 
     /**
+     * @doesNotPerformAssertions
      * @test
      */
     public function Then_Insta_Accounts_Should_Be_Fetched_From_Session_Token()
