@@ -1,7 +1,7 @@
 <?php
 
 
-namespace InstaFetcher\DataAccess\Http\Curl;
+namespace InstaFetcher\DataAccess\Http\SymfonyHttp;
 
 
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
