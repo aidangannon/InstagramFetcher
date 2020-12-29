@@ -49,6 +49,7 @@ class InstaUserHttpRepository implements IInstaUserRepository
 
     public function get(string $id): InstaUserModel
     {
-        throw new BadMethodCallException("not implemented");
+        $userDto = $this->userDao->getInstaInfo($id,$this->session->getToken());
+        return new InstaUserModel($userDto->id,$userDto->followersCount,$userDto->username);
     }
 }
