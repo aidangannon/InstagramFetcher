@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="InstaGet" default="unit_tests">
+
+    <!-- ============================================  -->
+    <!-- Unit Tests                                    -->
+    <!-- ============================================  -->
+    <target name="unit_tests">
+        <exec
+                command="${project.basedir}/${bin-dir}/phpunit --configuration unit.xml"
+                logoutput="true"
+                passthru="true"
+                checkreturn="true"
+        />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Properties                                    -->
+    <!-- ============================================  -->
+    <property name="php-exec" value="php" />
+
+    <property name="bin-dir" value="/vendor/bin/" />
+</project>

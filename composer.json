@@ -11,7 +11,8 @@
     "require": {
         "php": ">=7.4",
         "symfony/http-client": "^5.2",
-        "doctrine/annotations": "^1.11"
+        "doctrine/annotations": "^1.11",
+        "phing/phing": "^2.16"
     },
 
     "autoload": {
