@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace InstaFetcher\DataAccess\Interfaces\Repository;
+namespace InstaFetcher\Interfaces\DataAccess\Repository;
 
 
 use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace InstaFetcher\DataAccess\Http\Exception;
+namespace InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions;
 
 
 use Exception;
 use Throwable;
 
-class InstaUserNotFound extends Exception
+class InstaUserNotFound extends GraphException
 {
     public function __construct(string $handle)
     {

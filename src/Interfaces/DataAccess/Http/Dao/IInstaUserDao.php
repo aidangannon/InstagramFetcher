@@ -1,7 +1,7 @@
 <?php
 
 
-namespace InstaFetcher\DataAccess\Interfaces\Http\Dao;
+namespace InstaFetcher\Interfaces\DataAccess\Http\Dao;
 
 
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
