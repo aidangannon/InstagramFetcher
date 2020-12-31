@@ -13,7 +13,7 @@ use InstaFetcher\Interfaces\Validation\IFacebookGraphErrorValidator;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class FacebookPageSymfonyHttpDao implements IFacebookPageDao
+class FacebookPageSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements IFacebookPageDao
 {
 
     private HttpClientInterface $httpClient;
@@ -21,8 +21,17 @@ class FacebookPageSymfonyHttpDao implements IFacebookPageDao
     private IErrorDtoSerializer $errorSerializer;
     private IFacebookPageDtoSerializer $pageSerializer;
 
-    public function __construct(HttpClientInterface $httpClient, IFacebookGraphErrorValidator $errorValidator, IErrorDtoSerializer $errorSerializer, IFacebookPageDtoSerializer $pageSerializer)
+    public function __construct(
+        int $appId,
+        string $appSecret,
+        string $baseUrl,
+        HttpClientInterface $httpClient,
+        IFacebookGraphErrorValidator $errorValidator,
+        IErrorDtoSerializer $errorSerializer,
+        IFacebookPageDtoSerializer $pageSerializer
+    )
     {
+        parent::__construct($appId,$appSecret,$baseUrl);
         $this->httpClient = $httpClient;
         $this->errorValidator = $errorValidator;
         $this->errorSerializer = $errorSerializer;

@@ -40,7 +40,7 @@ abstract class InstaUserRepositoryTestCase extends GwtTestCase
         $this->mockPageDao = Mockery::mock(IFacebookPageDao::class);
         $this->mockSession = Mockery::mock(FacebookGraphSessionModel::class);
 
-        $this->setUpMocks();
+        $this->setUpClassProperties();
 
         $this->sut = new InstaUserHttpRepository($this->mockSession,$this->mockPageDao,$this->mockUserDao);
 

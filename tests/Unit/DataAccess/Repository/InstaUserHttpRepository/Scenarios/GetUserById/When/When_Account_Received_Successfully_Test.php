@@ -16,7 +16,7 @@ class When_Account_Received_Successfully_Test extends Given_User_Tries_To_Get_Us
 
     protected InstaUserDto $userDto;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")

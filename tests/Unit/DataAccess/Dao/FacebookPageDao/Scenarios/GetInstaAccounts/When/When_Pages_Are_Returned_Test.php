@@ -13,7 +13,7 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_Pages_With_
 {
     private FacebookPagesDto $pagesDto;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockResponse
             ->shouldReceive("getStatusCode")

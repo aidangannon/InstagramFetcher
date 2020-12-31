@@ -16,6 +16,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 abstract class FacebookPageDaoTestCase extends GwtTestCase
 {
+    protected int $appId;
+    protected string $appSecret;
+    protected string $baseUrl;
     /**
      * @var ResponseInterface|MockInterface
      */
@@ -47,9 +50,21 @@ abstract class FacebookPageDaoTestCase extends GwtTestCase
         $this->mockErrorSerializer = Mockery::mock(IErrorDtoSerializer::class);
         $this->mockPageSerializer = Mockery::mock(IFacebookPageDtoSerializer::class);
 
-        $this->setUpMocks();
+        $this->appId = 12345678;
+        $this->baseUrl = "https://graph.facebook.com/v9.0/";
+        $this->appSecret = "0000";
 
-        $this->sut = new FacebookPageSymfonyHttpDao($this->mockHttpClient,$this->mockErrorValidator,$this->mockErrorSerializer,$this->mockPageSerializer);
+        $this->setUpClassProperties();
+
+        $this->sut = new FacebookPageSymfonyHttpDao(
+            $this->appId,
+            $this->appSecret,
+            $this->baseUrl,
+            $this->mockHttpClient,
+            $this->mockErrorValidator,
+            $this->mockErrorSerializer,
+            $this->mockPageSerializer
+        );
 
         $this->when();
     }

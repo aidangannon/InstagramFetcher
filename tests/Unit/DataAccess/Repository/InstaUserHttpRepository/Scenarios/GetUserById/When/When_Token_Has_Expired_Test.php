@@ -19,7 +19,7 @@ class When_Token_Has_Expired_Test extends Given_User_Tries_To_Get_User_By_Id
 
     private TokenExpired $tokenException;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")

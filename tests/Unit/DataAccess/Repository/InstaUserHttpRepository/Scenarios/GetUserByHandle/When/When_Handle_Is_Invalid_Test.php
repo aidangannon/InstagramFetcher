@@ -14,7 +14,7 @@ class When_Handle_Is_Invalid_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
     protected FacebookPagesDto $pages;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")

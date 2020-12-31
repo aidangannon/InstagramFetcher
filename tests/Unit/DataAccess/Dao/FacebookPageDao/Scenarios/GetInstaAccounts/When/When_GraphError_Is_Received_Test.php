@@ -16,7 +16,7 @@ class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_W
     private GraphException $graphError;
     private int $graphErrorCode;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockResponse
             ->shouldReceive("getStatusCode")

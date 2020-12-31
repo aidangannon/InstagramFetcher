@@ -13,7 +13,7 @@ class When_No_Insta_Users_Returned_Test extends Given_User_Tries_To_Get_User_By_
 {
     protected FacebookPagesDto $pages;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")

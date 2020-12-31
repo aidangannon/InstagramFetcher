@@ -30,9 +30,9 @@ abstract class GwtTestCase extends TestCase
     public abstract function when();
 
     /**
-     * sets up mocks for each test scenario
+     * sets up mocks and class params for each test scenario
      */
-    abstract function setUpMocks();
+    abstract function setUpClassProperties();
 
     /**
      * returns an list of objects,

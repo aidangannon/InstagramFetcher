@@ -16,7 +16,7 @@ class When_Token_Is_Invalid_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
     protected TokenException $tokenException;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")

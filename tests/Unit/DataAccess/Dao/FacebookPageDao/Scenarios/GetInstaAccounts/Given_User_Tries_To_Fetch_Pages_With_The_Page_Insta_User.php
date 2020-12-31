@@ -10,8 +10,7 @@ use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\FacebookPageDaoTestCas
 
 abstract class Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User extends FacebookPageDaoTestCase
 {
-    protected string $token;
-    protected string $appSecretProof;
+    protected string $token="1111";
     protected Exception $exception;
     protected FacebookPagesDto $pages;
 
@@ -36,7 +35,9 @@ abstract class Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User extends 
                 "request",
                 [
                     'GET',
-                    "https://graph.facebook.com/v9.0/me/accounts?fields=instagram_business_account{username,followers_count}&access_token=$this->token&appsecret_proof=$this->appSecretProof"
+                    "https://graph.facebook.com/v9.0/me/accounts?
+                    fields=instagram_business_account{username,followers_count}&
+                    access_token=$this->token&appsecret_proof=".hash_hmac('sha256', $this->token, $this->appSecret)
                 ]
             );
     }
@@ -50,4 +51,8 @@ abstract class Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User extends 
         $this->mockResponse
             ->shouldHaveReceived("getStatusCode");
     }
+
+    public function fixtureProvider(): array { return [ [ ] ]; }
+
+    public function initFixture(array $data) { }
 }

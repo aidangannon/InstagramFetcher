@@ -17,7 +17,7 @@ class When_Fetching_Insta_User_Is_Not_Authorized extends Given_User_Tries_To_Get
 
     private TokenNotAuthorised $tokenException;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")
