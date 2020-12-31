@@ -14,7 +14,7 @@ class When_One_Insta_User_Belongs_To_Several_Pages_Test extends Given_User_Tries
 {
     protected FacebookPagesDto $pages;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")

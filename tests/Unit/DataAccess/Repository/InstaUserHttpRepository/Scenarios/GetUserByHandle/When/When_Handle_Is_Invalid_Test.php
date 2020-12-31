@@ -7,14 +7,14 @@ namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\S
 use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
-use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
+use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\InstaUserNotFound;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 
 class When_Handle_Is_Invalid_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
     protected FacebookPagesDto $pages;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")

@@ -6,9 +6,9 @@ namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\S
 
 use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
-use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
-use InstaFetcher\DataAccess\Http\Exception\TokenException;
-use InstaFetcher\DataAccess\Http\Exception\TokenNotAuthorised;
+use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\InstaUserNotFound;
+use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenException;
+use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenNotAuthorised;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\Given_User_Tries_To_Get_User_By_Id;
 
@@ -17,7 +17,7 @@ class When_Fetching_Insta_User_Is_Not_Authorized extends Given_User_Tries_To_Get
 
     private TokenNotAuthorised $tokenException;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")

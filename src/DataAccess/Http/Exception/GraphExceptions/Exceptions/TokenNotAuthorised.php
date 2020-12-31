@@ -1,7 +1,7 @@
 <?php
 
 
-namespace InstaFetcher\DataAccess\Http\Exception;
+namespace InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions;
 
 
 class TokenNotAuthorised extends TokenException

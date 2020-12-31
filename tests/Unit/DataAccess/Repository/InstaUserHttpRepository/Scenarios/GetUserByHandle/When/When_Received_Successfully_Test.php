@@ -14,7 +14,7 @@ class When_Received_Successfully_Test extends Given_User_Tries_To_Get_User_By_Ha
 {
     protected FacebookPagesDto $pages;
 
-    public function setUpMocks()
+    public function setUpClassProperties()
     {
         $this->mockSession
             ->shouldReceive("getToken")
