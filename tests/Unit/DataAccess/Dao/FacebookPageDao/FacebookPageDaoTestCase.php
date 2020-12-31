@@ -8,6 +8,7 @@ use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\FacebookGraphErrorVal
 use InstaFetcher\DataAccess\Http\SymfonyHttp\FacebookPageSymfonyHttpDao;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IFacebookPageDtoSerializer;
+use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IFacebookPagesDtoSerializer;
 use InstaFetcherTests\Unit\GwtTestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -36,9 +37,9 @@ abstract class FacebookPageDaoTestCase extends GwtTestCase
      */
     protected $mockErrorSerializer;
     /**
-     * @var IFacebookPageDtoSerializer|MockInterface
+     * @var IFacebookPagesDtoSerializer|MockInterface
      */
-    protected $mockPageSerializer;
+    protected $mockPagesSerializer;
 
     protected FacebookPageSymfonyHttpDao $sut;
 
@@ -48,7 +49,7 @@ abstract class FacebookPageDaoTestCase extends GwtTestCase
         $this->mockHttpClient = Mockery::mock(HttpClientInterface::class);
         $this->mockErrorValidator = Mockery::mock(FacebookGraphErrorValidator::class);
         $this->mockErrorSerializer = Mockery::mock(IErrorDtoSerializer::class);
-        $this->mockPageSerializer = Mockery::mock(IFacebookPageDtoSerializer::class);
+        $this->mockPagesSerializer = Mockery::mock(IFacebookPagesDtoSerializer::class);
 
         $this->appId = 12345678;
         $this->baseUrl = "https://graph.facebook.com/v9.0/";
@@ -63,7 +64,7 @@ abstract class FacebookPageDaoTestCase extends GwtTestCase
             $this->mockHttpClient,
             $this->mockErrorValidator,
             $this->mockErrorSerializer,
-            $this->mockPageSerializer
+            $this->mockPagesSerializer
         );
 
         $this->when();

@@ -12,7 +12,8 @@ use InstaFetcher\Interfaces\Validation\IFacebookGraphErrorValidator;
  */
 class FacebookGraphErrorValidator implements IFacebookGraphErrorValidator
 {
-    public function validateCode(): GraphException{
-        throw new BadMethodCallException("not implemented");
+    public function validateCode(int $code): GraphException
+    {
+        throw new \BadMethodCallException("not implemented");
     }
 }

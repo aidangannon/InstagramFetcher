@@ -18,14 +18,19 @@ class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_W
 
     public function setUpClassProperties()
     {
+        $this->mockHttpClient
+            ->shouldReceive("request")
+            ->andReturns($this->mockResponse);
         $this->mockResponse
             ->shouldReceive("getStatusCode")
             ->andReturns(400);
+        $this->mockResponse
+            ->shouldReceive("toArray");
         $this->mockErrorSerializer
             ->shouldReceive("deserialize")
             ->andReturns(new ErrorDto(new ErrorMetaDataDto("",$this->graphErrorCode,1344)));
-        $this->mockErrorSerializer
-            ->shouldReceive("deserialize")
+        $this->mockErrorValidator
+            ->shouldReceive("validateCode")
             ->andReturns($this->graphError);
     }
 

@@ -15,10 +15,15 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_Pages_With_
 
     public function setUpClassProperties()
     {
+        $this->mockHttpClient
+            ->shouldReceive("request")
+            ->andReturns($this->mockResponse);
+        $this->mockResponse
+            ->shouldReceive("toArray");
         $this->mockResponse
             ->shouldReceive("getStatusCode")
             ->andReturns(200);
-        $this->mockPageSerializer
+        $this->mockPagesSerializer
             ->shouldReceive("deserialize")
             ->andReturns($this->pagesDto);
     }

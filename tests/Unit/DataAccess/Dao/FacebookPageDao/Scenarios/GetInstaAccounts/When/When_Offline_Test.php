@@ -11,12 +11,17 @@ class When_Offline_Test extends Given_User_Tries_To_Fetch_Pages_With_The_Page_In
 {
     public function setUpClassProperties()
     {
+        $this->mockHttpClient
+            ->shouldReceive("request")
+            ->andReturns($this->mockResponse);
         $this->mockResponse
             ->shouldReceive("getStatusCode")
             ->andThrow(TransportException::class);
     }
 
+    public function fixtureProvider(): array { return [ [ ] ]; }
 
+    public function initFixture(array $data) { }
 
     /**
      * @test

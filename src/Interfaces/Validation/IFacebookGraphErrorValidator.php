@@ -10,5 +10,5 @@ use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphExcep
  */
 interface IFacebookGraphErrorValidator
 {
-    public function validateCode(): GraphException;
+    public function validateCode(int $code): GraphException;
 }
