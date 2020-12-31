@@ -37,18 +37,15 @@ class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_W
     public function fixtureProvider(): array
     {
         $token = "1111";
-        $appSecretProof="11110000";
 
         return [
             [
                 "token"=>$token,
-                "appSecretProof"=>$appSecretProof,
                 "graphErrorCode"=>190,
                 "graphError"=>new TokenExpired($token)
             ],
             [
                 "token"=>$token,
-                "appSecretProof"=>$appSecretProof,
                 "graphErrorCode"=>299,
                 "graphError"=>new TokenNotAuthorised($token)
             ]
@@ -58,7 +55,6 @@ class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_W
     public function initFixture(array $data)
     {
         $this->token=$data["token"];
-        $this->appSecretProof=$data["appSecretProof"];
         $this->graphErrorCode=$data["graphErrorCode"];
         $this->graphError=$data["graphError"];
     }
