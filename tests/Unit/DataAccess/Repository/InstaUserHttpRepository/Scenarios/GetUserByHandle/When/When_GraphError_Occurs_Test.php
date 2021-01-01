@@ -8,7 +8,7 @@ use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 
-class When_Token_Is_Invalid_Test extends Given_User_Tries_To_Get_User_By_Handle
+class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
     protected GraphException $tokenException;
 

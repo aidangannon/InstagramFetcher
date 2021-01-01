@@ -5,12 +5,22 @@ namespace InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions;
 
 
 use Exception;
+use InstaFetcher\DataAccess\Dtos\ErrorDto;
 use Throwable;
 
 class GraphException extends Exception
 {
-    public function __construct()
+
+    private ErrorDto $graphError;
+
+    public function __construct(ErrorDto $graphError)
     {
-        parent::__construct("a facebook graph error occurred");
+        parent::__construct("a graph error occurred");
+        $this->graphError = $graphError;
+    }
+
+    public function getGraphError(): ErrorDto
+    {
+        return $this->graphError;
     }
 }

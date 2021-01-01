@@ -7,14 +7,12 @@ namespace InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetIns
 use InstaFetcher\DataAccess\Dtos\ErrorDto;
 use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenExpired;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenNotAuthorised;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User;
 
-class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User
+class When_GraphError_Occurs_Test extends Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User
 {
-    private GraphException $graphError;
-    private int $graphErrorCode;
+    private ErrorDto $graphError;
+    private int $statusCode;
 
     public function setUpClassProperties()
     {
@@ -23,31 +21,39 @@ class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_W
             ->andReturns($this->mockResponse);
         $this->mockResponse
             ->shouldReceive("getStatusCode")
-            ->andReturns(400);
+            ->andReturns($this->statusCode);
         $this->mockResponse
             ->shouldReceive("toArray");
         $this->mockErrorSerializer
             ->shouldReceive("deserialize")
-            ->andReturns(new ErrorDto(new ErrorMetaDataDto("",$this->graphErrorCode,1344)));
-        $this->mockErrorValidator
-            ->shouldReceive("validateCode")
             ->andReturns($this->graphError);
     }
 
     public function fixtureProvider(): array
     {
-        $token = "1111";
+
+        $error = new ErrorDto(new ErrorMetaDataDto("BlahBlah",3213,321321));
 
         return [
             [
-                "token"=>$token,
-                "graphErrorCode"=>190,
-                "graphError"=>new TokenExpired($token)
+                "token"=>"1111",
+                "statusCode"=>400,
+                "graphError"=>$error
             ],
             [
-                "token"=>$token,
-                "graphErrorCode"=>299,
-                "graphError"=>new TokenNotAuthorised($token)
+                "token"=>"1111",
+                "statusCode"=>404,
+                "graphError"=>$error
+            ],
+            [
+                "token"=>"1111",
+                "statusCode"=>401,
+                "graphError"=>$error
+            ],
+            [
+                "token"=>"1111",
+                "statusCode"=>403,
+                "graphError"=>$error
             ]
         ];
     }
@@ -55,18 +61,8 @@ class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_W
     public function initFixture(array $data)
     {
         $this->token=$data["token"];
-        $this->graphErrorCode=$data["graphErrorCode"];
         $this->graphError=$data["graphError"];
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Error_Code_Must_Be_Validated()
-    {
-        $this->mockErrorValidator
-            ->shouldHaveReceived("validateCode",[$this->graphErrorCode]);
+        $this->statusCode=$data["statusCode"];
     }
 
     /**
@@ -84,7 +80,7 @@ class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_W
      */
     public function Then_GraphException_Should_Be_Thrown()
     {
-        self::assertEquals($this->graphError,$this->exception);
+        self::assertEquals(new GraphException($this->graphError),$this->exception);
     }
 
 }

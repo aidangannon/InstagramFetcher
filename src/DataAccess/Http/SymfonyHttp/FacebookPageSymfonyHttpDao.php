@@ -21,7 +21,6 @@ class FacebookPageSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements 
 {
 
     private HttpClientInterface $httpClient;
-    private IFacebookGraphErrorValidator $errorValidator;
     private IErrorDtoSerializer $errorSerializer;
     private IFacebookPagesDtoSerializer $pagesSerializer;
 
@@ -30,14 +29,12 @@ class FacebookPageSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements 
         string $appSecret,
         string $baseUrl,
         HttpClientInterface $httpClient,
-        IFacebookGraphErrorValidator $errorValidator,
         IErrorDtoSerializer $errorSerializer,
         IFacebookPagesDtoSerializer $pagesSerializer
     )
     {
         parent::__construct($appId,$appSecret,$baseUrl);
         $this->httpClient = $httpClient;
-        $this->errorValidator = $errorValidator;
         $this->errorSerializer = $errorSerializer;
         $this->pagesSerializer = $pagesSerializer;
     }
@@ -56,11 +53,9 @@ class FacebookPageSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements 
         switch($code){
             case 200:
                 return $this->pagesSerializer->deserialize($response->toArray());
-            case 400:
-                $error = $this->errorSerializer->deserialize($response->toArray());
-                throw $this->errorValidator->validateCode($error->error->code);
             default:
-                throw new GraphException;
+                $error = $this->errorSerializer->deserialize($response->toArray());
+                throw new GraphException($error);
         }
     }
 }

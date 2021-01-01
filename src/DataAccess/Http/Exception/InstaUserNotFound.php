@@ -1,7 +1,7 @@
 <?php
 
 
-namespace InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions;
+namespace InstaFetcher\DataAccess\Http\Exception;
 
 
 use Exception;
