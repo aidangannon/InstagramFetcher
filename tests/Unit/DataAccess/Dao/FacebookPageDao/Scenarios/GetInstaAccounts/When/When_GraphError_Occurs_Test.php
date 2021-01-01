@@ -11,7 +11,7 @@ use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenExpir
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenNotAuthorised;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User;
 
-class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User
+class When_GraphError_Occurs_Test extends Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User
 {
     private GraphException $graphError;
     private int $graphErrorCode;
@@ -36,25 +36,20 @@ class When_GraphError_Is_Received_Test extends Given_User_Tries_To_Fetch_Pages_W
 
     public function fixtureProvider(): array
     {
-        $token = "1111";
-
-        return [
+         return [
             [
-                "token"=>$token,
                 "graphErrorCode"=>190,
-                "graphError"=>new TokenExpired($token)
+                "graphError"=>new TokenExpired($this->token)
             ],
             [
-                "token"=>$token,
                 "graphErrorCode"=>299,
-                "graphError"=>new TokenNotAuthorised($token)
+                "graphError"=>new TokenNotAuthorised($this->token)
             ]
         ];
     }
 
     public function initFixture(array $data)
     {
-        $this->token=$data["token"];
         $this->graphErrorCode=$data["graphErrorCode"];
         $this->graphError=$data["graphError"];
     }
