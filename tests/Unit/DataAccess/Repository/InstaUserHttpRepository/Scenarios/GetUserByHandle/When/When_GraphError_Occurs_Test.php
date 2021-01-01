@@ -3,18 +3,14 @@
 namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\When;
 
 
-use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
-use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
-use InstaFetcher\DataAccess\Dtos\InstaUserDto;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\InstaUserNotFound;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenException;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenExpired;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenNotAuthorised;
+use InstaFetcher\DataAccess\Dtos\ErrorDto;
+use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
+use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 
 class When_Token_Is_Invalid_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
-    protected TokenException $tokenException;
+    protected GraphException $tokenException;
 
     public function setUpClassProperties()
     {
@@ -33,12 +29,7 @@ class When_Token_Is_Invalid_Test extends Given_User_Tries_To_Get_User_By_Handle
             [
                 "token" => "00000",
                 "handle" => "example_handle",
-                "tokenException" => new TokenExpired("00000")
-            ],
-            [
-                "token" => "00000",
-                "handle" => "example_handle",
-                "tokenException" => new TokenNotAuthorised("00000")
+                "tokenException" => new GraphException(new ErrorDto(new ErrorMetaDataDto("OAuthException",190,0)))
             ]
         ];
     }
@@ -48,14 +39,6 @@ class When_Token_Is_Invalid_Test extends Given_User_Tries_To_Get_User_By_Handle
         $this->token = $data["token"];
         $this->handle = $data["handle"];
         $this->tokenException = $data["tokenException"];
-    }
-
-    /**
-     * @test
-     */
-    public function Then_User_Should_Not_Be_Returned()
-    {
-        self::assertFalse(isset($this->user));
     }
 
     /**

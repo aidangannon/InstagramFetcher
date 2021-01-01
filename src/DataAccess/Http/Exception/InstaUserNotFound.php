@@ -7,7 +7,7 @@ namespace InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions;
 use Exception;
 use Throwable;
 
-class InstaUserNotFound extends GraphException
+class InstaUserNotFound extends Exception
 {
     public function __construct(string $handle)
     {
