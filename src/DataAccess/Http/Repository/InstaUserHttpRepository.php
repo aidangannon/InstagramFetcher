@@ -5,7 +5,7 @@ namespace InstaFetcher\DataAccess\Http\Repository;
 
 
 use BadMethodCallException;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\InstaUserNotFound;
+use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IFacebookPageDao;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IInstaUserDao;
 use InstaFetcher\Interfaces\DataAccess\Repository\IInstaUserRepository;

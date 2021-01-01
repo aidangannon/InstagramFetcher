@@ -52,18 +52,6 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_Pages_With_
     }
 
     /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_No_Error_Handled()
-    {
-        $this->mockErrorValidator
-            ->shouldNotHaveReceived("validateCode");
-        $this->mockErrorSerializer
-            ->shouldNotHaveReceived("deserialize");
-    }
-
-    /**
      * @test
      */
     public function Then_Pages_Should_Be_Returned()
