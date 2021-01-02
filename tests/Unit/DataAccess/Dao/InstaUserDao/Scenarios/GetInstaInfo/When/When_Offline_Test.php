@@ -9,6 +9,11 @@ use Mockery;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * <u> covers situations: </u>
+ * * facebook offline
+ * * http client error
+ */
 class When_Offline_Test extends Given_User_Tries_To_Fetch_Insta_User_Info
 {
 
