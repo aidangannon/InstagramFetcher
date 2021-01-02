@@ -9,6 +9,12 @@ use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\Given_User_Tries_To_Get_User_By_Id;
 
+/**
+ * <u> covers situations: </u>
+ * * when token is invalid
+ * * when insta user doesnt exist
+ * * when insta user doesnt belong to user
+ */
 class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Id
 {
 
