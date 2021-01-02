@@ -9,6 +9,10 @@ use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User;
 use InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\InstaUserDaoTestCase;
 
+/**
+ * <u> covers situations: </u>
+ * * user wants to fetch insta profile information
+ */
 abstract class Given_User_Tries_To_Fetch_Insta_User_Info extends InstaUserDaoTestCase
 {
 
