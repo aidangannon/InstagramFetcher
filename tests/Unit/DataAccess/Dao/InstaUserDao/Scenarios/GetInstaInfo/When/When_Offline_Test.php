@@ -40,13 +40,4 @@ class When_Offline_Test extends Given_User_Tries_To_Fetch_Insta_User_Info
     public function Then_TransportException_Should_Be_Thrown(){
         self::assertInstanceOf(TransportException::class,$this->exception);
     }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Error_Validator_Not_Called(){
-        $this->mockErrorValidator
-            ->shouldNotHaveReceived("validateCode");
-    }
 }

@@ -24,11 +24,6 @@ abstract class InstaUserDaoTestCase extends GwtTestCase
     protected $mockHttpClient;
 
     /**
-     * @var IFacebookGraphErrorValidator|MockInterface
-     */
-    protected $mockErrorValidator;
-
-    /**
      * @var IErrorDtoSerializer|MockInterface
      */
     protected $mockErrorSerializer;
@@ -41,7 +36,6 @@ abstract class InstaUserDaoTestCase extends GwtTestCase
     protected function setUp(): void
     {
         $this->mockHttpClient = Mockery::mock(HttpClientInterface::class);
-        $this->mockErrorValidator = Mockery::mock(IFacebookGraphErrorValidator::class);
         $this->mockErrorSerializer = Mockery::mock(IErrorDtoSerializer::class);
         $this->mockUserSerializer = Mockery::mock(IInstaUserDtoSerializer::class);
 
@@ -49,7 +43,6 @@ abstract class InstaUserDaoTestCase extends GwtTestCase
 
         $this->sut = new InstaUserSymfonyHttpDao(
             $this->mockHttpClient,
-            $this->mockErrorValidator,
             $this->mockErrorSerializer,
             $this->mockUserSerializer
         );

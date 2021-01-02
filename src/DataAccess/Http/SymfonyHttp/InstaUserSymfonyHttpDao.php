@@ -15,14 +15,15 @@ class InstaUserSymfonyHttpDao implements IInstaUserDao
 {
 
     private HttpClientInterface $httpClient;
-    private IFacebookGraphErrorValidator $errorValidator;
     private IErrorDtoSerializer $errorSerializer;
     private IInstaUserDtoSerializer $userSerializer;
 
-    public function __construct(HttpClientInterface $httpClient, IFacebookGraphErrorValidator $errorValidator, IErrorDtoSerializer $errorSerializer, IInstaUserDtoSerializer $userSerializer)
+    public function __construct(
+        HttpClientInterface $httpClient,
+        IErrorDtoSerializer $errorSerializer,
+        IInstaUserDtoSerializer $userSerializer)
     {
         $this->httpClient = $httpClient;
-        $this->errorValidator = $errorValidator;
         $this->errorSerializer = $errorSerializer;
         $this->userSerializer = $userSerializer;
     }
