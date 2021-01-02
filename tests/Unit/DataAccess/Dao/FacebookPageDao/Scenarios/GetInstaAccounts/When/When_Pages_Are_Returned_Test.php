@@ -9,6 +9,10 @@ use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User;
 
+/**
+ * <u> covers situations: </u>
+ * * when user receives every page with its associated insta user
+ */
 class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User
 {
     private FacebookPagesDto $pagesDto;

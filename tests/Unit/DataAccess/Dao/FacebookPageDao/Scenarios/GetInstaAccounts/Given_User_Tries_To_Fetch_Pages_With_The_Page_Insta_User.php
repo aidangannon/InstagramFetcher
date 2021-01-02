@@ -8,6 +8,12 @@ use Exception;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\FacebookPageDaoTestCase;
 
+/**
+ * <u> covers situations: </u>
+ * * user wants to get list of all insta users
+ * * user wants to find insta user by username
+ * * user wants to get list of all users pages with id and their insta account
+ */
 abstract class Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User extends FacebookPageDaoTestCase
 {
     protected string $token="1111";

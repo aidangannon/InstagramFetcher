@@ -9,6 +9,12 @@ use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User;
 
+/**
+ * <u> covers situations: </u>
+ * * when token has expired
+ * * when token doesnt have page permission
+ * * when appsecret proof is not present
+ */
 class When_GraphError_Occurs_Test extends Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User
 {
     private ErrorDto $graphError;
