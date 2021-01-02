@@ -4,18 +4,15 @@ declare(strict_types=1);
 namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\When;
 
 
-use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
-use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\InstaUserNotFound;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenException;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\TokenNotAuthorised;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
+use InstaFetcher\DataAccess\Dtos\ErrorDto;
+use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
+use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\Given_User_Tries_To_Get_User_By_Id;
 
-class When_Fetching_Insta_User_Is_Not_Authorized extends Given_User_Tries_To_Get_User_By_Id
+class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Id
 {
 
-    private TokenNotAuthorised $tokenException;
+    private GraphException $tokenException;
 
     public function setUpClassProperties()
     {
@@ -34,7 +31,7 @@ class When_Fetching_Insta_User_Is_Not_Authorized extends Given_User_Tries_To_Get
 
         return [
             [
-                "tokenException"=>new TokenNotAuthorised($token),
+                "tokenException"=>new GraphException(new ErrorDto(new ErrorMetaDataDto("OAuthError",190,0))),
                 "token"=>$token,
                 "id"=>"33333"
             ]
@@ -51,15 +48,7 @@ class When_Fetching_Insta_User_Is_Not_Authorized extends Given_User_Tries_To_Get
     /**
      * @test
      */
-    public function Then_User_Should_Not_Be_Returned(){
-        self::assertFalse(isset($this->user));
-    }
-
-    /**
-     * @test
-     */
     public function Then_TokenNotAuthorized_Exception_Is_Thrown(){
-        self::assertTrue($this->exception instanceof TokenNotAuthorised);
         self::assertEquals($this->tokenException,$this->exception);
     }
 }

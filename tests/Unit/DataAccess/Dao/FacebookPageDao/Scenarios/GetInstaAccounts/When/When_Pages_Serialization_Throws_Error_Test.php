@@ -42,16 +42,6 @@ class When_Pages_Serialization_Throws_Error_Test extends Given_User_Tries_To_Fet
     }
 
     /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Error_Code_Must_Not_Be_Validated()
-    {
-        $this->mockErrorValidator
-            ->shouldNotHaveReceived("validateCode");
-    }
-
-    /**
      * @test
      */
     public function Then_DeserializationException_Should_Be_Thrown()
