@@ -25,7 +25,9 @@ class When_GraphError_Occurs_Test extends Given_User_Tries_To_Fetch_Insta_User_I
     {
         $this->mockResponse
             ->shouldReceive("getStatusCode")
-            ->andThrows($this->statusCode);
+            ->andReturns($this->statusCode);
+        $this->mockResponse
+            ->shouldReceive("toArray");
 
         $this->mockHttpClient
             ->shouldReceive("request")

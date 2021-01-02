@@ -25,7 +25,7 @@ abstract class Given_User_Tries_To_Fetch_Insta_User_Info extends InstaUserDaoTes
     public function when()
     {
         try {
-            $user = $this->sut->getInstaInfo($this->id,$this->token);
+            $this->user = $this->sut->getInstaInfo($this->id,$this->token);
         }
         catch(Exception $e) {
             $this->exception = $e;

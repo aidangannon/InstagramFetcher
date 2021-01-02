@@ -15,7 +15,7 @@ class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User
     {
         $this->mockResponse
             ->shouldReceive("getStatusCode")
-            ->andThrows(200);
+            ->andReturns(200);
 
         $this->mockHttpClient
             ->shouldReceive("request")
@@ -38,7 +38,7 @@ class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User
 
     public function initFixture(array $data)
     {
-        $this->user=$data["userDto"];
+        $this->userDto=$data["userDto"];
     }
 
     /**

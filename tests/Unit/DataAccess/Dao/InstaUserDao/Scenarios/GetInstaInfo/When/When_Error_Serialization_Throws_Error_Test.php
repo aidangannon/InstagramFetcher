@@ -21,7 +21,7 @@ class When_Error_Serialization_Throws_Error_Test extends Given_User_Tries_To_Fet
     {
         $this->mockResponse
             ->shouldReceive("getStatusCode")
-            ->andThrows($this->statusCode);
+            ->andReturns($this->statusCode);
 
         $this->mockHttpClient
             ->shouldReceive("request")

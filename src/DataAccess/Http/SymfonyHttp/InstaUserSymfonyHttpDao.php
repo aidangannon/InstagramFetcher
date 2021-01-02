@@ -5,6 +5,7 @@ namespace InstaFetcher\DataAccess\Http\SymfonyHttp;
 
 
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
+use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IInstaUserDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IInstaUserDao;
@@ -33,6 +34,18 @@ class InstaUserSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements IIn
 
     public function getInstaInfo(string $instaId, string $token): InstaUserDto
     {
-        throw new \BadMethodCallException("not implemented");
+        $url = "{$this->baseUrl}{$instaId}?fields=id,username,followers_count&access_token={$token}&appsecret_proof=".$this->generateAppSecretProof($token);
+        $response = $this->httpClient->request("GET",$url);
+
+
+        $code = $response->getStatusCode();
+
+        switch($code){
+            case 200:
+                return $this->userSerializer->deserialize($response->toArray(false));
+            default:
+                $error = $this->errorSerializer->deserialize($response->toArray(false));
+                throw new GraphException($error);
+        }
     }
 }
