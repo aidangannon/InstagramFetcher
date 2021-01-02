@@ -8,8 +8,6 @@ use InstaFetcher\DataAccess\Dtos\ErrorDto;
 use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
 use InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\Given_User_Tries_To_Fetch_Insta_User_Info;
-use Mockery;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * <u> covers situations: </u>
@@ -25,14 +23,13 @@ class When_GraphError_Occurs_Test extends Given_User_Tries_To_Fetch_Insta_User_I
 
     public function setUpClassProperties()
     {
-        $mockResponse = Mockery::mock(ResponseInterface::class);
-        $mockResponse
+        $this->mockResponse
             ->shouldReceive("getStatusCode")
             ->andThrows($this->statusCode);
 
         $this->mockHttpClient
             ->shouldReceive("request")
-            ->andReturns($mockResponse);
+            ->andReturns($this->mockResponse);
         $this->mockErrorSerializer
             ->shouldReceive("deserialize")
             ->andReturns($this->graphError);

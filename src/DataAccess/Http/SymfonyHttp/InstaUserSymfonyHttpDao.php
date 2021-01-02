@@ -8,10 +8,9 @@ use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IInstaUserDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IInstaUserDao;
-use InstaFetcher\Interfaces\Validation\IFacebookGraphErrorValidator;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class InstaUserSymfonyHttpDao implements IInstaUserDao
+class InstaUserSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements IInstaUserDao
 {
 
     private HttpClientInterface $httpClient;
@@ -19,10 +18,14 @@ class InstaUserSymfonyHttpDao implements IInstaUserDao
     private IInstaUserDtoSerializer $userSerializer;
 
     public function __construct(
+        int $appId,
+        string $appSecret,
+        string $baseUrl,
         HttpClientInterface $httpClient,
         IErrorDtoSerializer $errorSerializer,
         IInstaUserDtoSerializer $userSerializer)
     {
+        parent::__construct($appId,$appSecret,$baseUrl);
         $this->httpClient = $httpClient;
         $this->errorSerializer = $errorSerializer;
         $this->userSerializer = $userSerializer;

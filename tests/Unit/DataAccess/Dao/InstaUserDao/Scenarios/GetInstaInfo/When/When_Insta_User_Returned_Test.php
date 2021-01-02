@@ -6,8 +6,6 @@ namespace InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaI
 
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\Given_User_Tries_To_Fetch_Insta_User_Info;
-use Mockery;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User_Info
 {
@@ -15,15 +13,14 @@ class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User
 
     public function setUpClassProperties()
     {
-        $mockResponse = Mockery::mock(ResponseInterface::class);
-        $mockResponse
+        $this->mockResponse
             ->shouldReceive("getStatusCode")
             ->andThrows(200);
 
         $this->mockHttpClient
             ->shouldReceive("request")
-            ->andReturns($mockResponse);
-        $mockResponse
+            ->andReturns($this->mockResponse);
+        $this->mockResponse
             ->shouldReceive("toArray");
         $this->mockUserSerializer
             ->shouldReceive("deserialize")

@@ -5,9 +5,7 @@ namespace InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaI
 
 
 use InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\Given_User_Tries_To_Fetch_Insta_User_Info;
-use Mockery;
 use Symfony\Component\HttpClient\Exception\TransportException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * <u> covers situations: </u>
@@ -19,13 +17,12 @@ class When_Offline_Test extends Given_User_Tries_To_Fetch_Insta_User_Info
 
     function setUpClassProperties()
     {
-        $mockResponse = Mockery::mock(ResponseInterface::class);
-        $mockResponse
+        $this->mockResponse
             ->shouldReceive("getStatusCode")
             ->andThrow(TransportException::class);
         $this->mockHttpClient
             ->shouldReceive("request")
-            ->andReturns($mockResponse);
+            ->andReturns($this->mockResponse);
     }
 
     function fixtureProvider(): array

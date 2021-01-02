@@ -31,4 +31,32 @@ abstract class Given_User_Tries_To_Fetch_Insta_User_Info extends InstaUserDaoTes
             $this->exception = $e;
         }
     }
+
+    /**
+     * @doesNotPerformAssertions
+     * @test
+     */
+    public function Then_Correct_Url_Is_Called()
+    {
+        $this->mockHttpClient
+            ->shouldHaveReceived(
+                "request",
+                [
+                    'GET',
+                    "{$this->baseUrl}{$this->id}?".
+                    "fields=id,username,followers_count&".
+                    "access_token={$this->token}&appsecret_proof=".hash_hmac('sha256', $this->token, $this->appSecret)
+                ]
+            );
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     * @test
+     */
+    public function Then_Response_Code_Must_Be_Retrieved_For_Validation()
+    {
+        $this->mockResponse
+            ->shouldHaveReceived("getStatusCode");
+    }
 }

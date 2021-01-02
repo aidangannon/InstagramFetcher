@@ -12,9 +12,14 @@ use InstaFetcherTests\Unit\GwtTestCase;
 use Mockery;
 use Mockery\MockInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 abstract class InstaUserDaoTestCase extends GwtTestCase
 {
+
+    protected int $appId;
+    protected string $appSecret;
+    protected string $baseUrl;
 
     protected InstaUserSymfonyHttpDao $sut;
 
@@ -33,15 +38,28 @@ abstract class InstaUserDaoTestCase extends GwtTestCase
      */
     protected $mockUserSerializer;
 
+    /**
+     * @var ResponseInterface|MockInterface
+     */
+    protected $mockResponse;
+
     protected function setUp(): void
     {
         $this->mockHttpClient = Mockery::mock(HttpClientInterface::class);
         $this->mockErrorSerializer = Mockery::mock(IErrorDtoSerializer::class);
         $this->mockUserSerializer = Mockery::mock(IInstaUserDtoSerializer::class);
+        $this->mockResponse = Mockery::mock(ResponseInterface::class);
 
         $this->setUpClassProperties();
 
+        $this->appId = 12345678;
+        $this->baseUrl = "https://graph.facebook.com/v9.0/";
+        $this->appSecret = "0000";
+
         $this->sut = new InstaUserSymfonyHttpDao(
+            $this->appId,
+            $this->appSecret,
+            $this->baseUrl,
             $this->mockHttpClient,
             $this->mockErrorSerializer,
             $this->mockUserSerializer
