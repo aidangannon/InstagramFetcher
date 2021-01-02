@@ -8,6 +8,10 @@ use Exception;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\InstaUserRepositoryTestCase;
 
+/**
+ * <u> covers situations: </u>
+ * * when user wants to search for specific insta user by handle once and save their id
+ */
 abstract class Given_User_Tries_To_Get_User_By_Handle extends InstaUserRepositoryTestCase
 {
     protected string $token;

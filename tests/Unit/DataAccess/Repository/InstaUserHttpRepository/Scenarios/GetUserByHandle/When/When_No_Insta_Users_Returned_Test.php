@@ -9,6 +9,13 @@ use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 
+/**
+ * <u> covers situations: </u>
+ * * if no pages arent authorized
+ * * if no insta accounts are authorized
+ * * if user doesnt have any pages or insta accounts
+ * * if pages arent linked with insta accounts
+ */
 class When_No_Insta_Users_Returned_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
     protected FacebookPagesDto $pages;

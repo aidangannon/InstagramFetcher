@@ -8,6 +8,12 @@ use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 
+/**
+ * <u> covers situations: </u>
+ * * token expires
+ * * token is invalid
+ * * user doesnt have pages permission
+ */
 class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Handle
 {
     protected GraphException $tokenException;

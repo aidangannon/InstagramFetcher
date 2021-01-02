@@ -7,6 +7,11 @@ namespace InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetIns
 use InstaFetcher\DataAccess\Dtos\Serializers\Exception\ErrorDtoDeserializationError;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User;
 
+/**
+ * <u> covers situations: </u>
+ * * when an unknown error response is sent from graph api
+ * * when facebook graph error schema changes
+ */
 class When_Error_Serialization_Throws_Error_Test extends Given_User_Tries_To_Fetch_Pages_With_The_Page_Insta_User
 {
 
