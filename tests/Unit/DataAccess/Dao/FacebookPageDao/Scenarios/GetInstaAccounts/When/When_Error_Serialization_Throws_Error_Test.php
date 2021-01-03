@@ -53,4 +53,14 @@ class When_Error_Serialization_Throws_Error_Test extends Given_User_Tries_To_Fet
     {
         self::assertInstanceOf(ErrorDtoDeserializationError::class,$this->exception);
     }
+
+    /**
+     * @doesNotPerformAssertions
+     * @test
+     */
+    public function Then_Getting_Response_Body_Doesnt_Throw_Error()
+    {
+        $this->mockResponse
+            ->shouldHaveReceived("toArray",[false]);
+    }
 }

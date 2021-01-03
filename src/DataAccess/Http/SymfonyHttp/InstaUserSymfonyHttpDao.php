@@ -42,9 +42,9 @@ class InstaUserSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements IIn
 
         switch($code){
             case 200:
-                return $this->userSerializer->deserialize($response->toArray(false));
+                return $this->userSerializer->deserialize($response->toArray());
             default:
-                $error = $this->errorSerializer->deserialize($response->toArray(false));
+                $error = $this->errorSerializer->deserialize($response->toArray());
                 throw new GraphException($error);
         }
     }

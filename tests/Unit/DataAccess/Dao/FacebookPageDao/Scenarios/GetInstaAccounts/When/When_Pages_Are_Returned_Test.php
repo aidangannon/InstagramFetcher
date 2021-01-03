@@ -62,4 +62,14 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_Pages_With_
     {
         self::assertEquals($this->pagesDto,$this->pages);
     }
+
+    /**
+     * @doesNotPerformAssertions
+     * @test
+     */
+    public function Then_Getting_Response_Body_Doesnt_Throw_Error()
+    {
+        $this->mockResponse
+            ->shouldHaveReceived("toArray",[false]);
+    }
 }
