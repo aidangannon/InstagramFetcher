@@ -52,9 +52,9 @@ class FacebookPageSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements 
 
         switch($code){
             case 200:
-                return $this->pagesSerializer->deserialize($response->toArray());
+                return $this->pagesSerializer->deserialize($response->toArray(false));
             default:
-                $error = $this->errorSerializer->deserialize($response->toArray());
+                $error = $this->errorSerializer->deserialize($response->toArray(false));
                 throw new GraphException($error);
         }
     }
