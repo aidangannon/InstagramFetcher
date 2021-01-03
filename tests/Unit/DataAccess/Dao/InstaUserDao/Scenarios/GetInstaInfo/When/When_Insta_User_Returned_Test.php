@@ -42,10 +42,12 @@ class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User
     }
 
     /**
+     * @doesNotPerformAssertions
      * @test
      */
-    public function Then_User_Should_Be_Returned()
+    public function Then_Getting_Response_Body_Doesnt_Throw_Error()
     {
-        self::assertEquals($this->userDto,$this->user);
+        $this->mockResponse
+            ->shouldHaveReceived("toArray",[false]);
     }
 }
