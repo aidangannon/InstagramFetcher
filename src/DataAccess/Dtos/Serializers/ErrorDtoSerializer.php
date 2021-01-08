@@ -13,7 +13,7 @@ class ErrorDtoSerializer implements IErrorDtoSerializer
 {
     private IErrorMetaDtoSerializer $errorMetaSerializer;
 
-    public function __construct(ErrorMetaDtoSerializer $errorMetaSerializer)
+    public function __construct(IErrorMetaDtoSerializer $errorMetaSerializer)
     {
         $this->errorMetaSerializer = $errorMetaSerializer;
     }
