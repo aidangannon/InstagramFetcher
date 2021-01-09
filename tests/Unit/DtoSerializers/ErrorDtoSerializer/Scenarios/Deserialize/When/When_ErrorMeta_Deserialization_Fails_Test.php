@@ -10,7 +10,7 @@ use InstaFetcherTests\Unit\DtoSerializers\ErrorDtoSerializer\Scenarios\Deseriali
 class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
 {
 
-    private array $errorMetaInput=["invalidData2"=>"data","invalidData3"=>"data2"];
+    private array $errorMetaInput;
 
     function setUpClassProperties()
     {
@@ -21,10 +21,13 @@ class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Cal
 
     function fixtureProvider(): array
     {
+        $errorMetaInput=["invalidData2"=>"data","invalidData3"=>"data2"];
+
         return [
             [
                 "dataIn"=>
-                    ["data"=>$this->errorMetaInput]
+                    ["data"=>$errorMetaInput],
+                "errorMetaInput"=>$errorMetaInput
             ]
         ];
     }
@@ -32,6 +35,7 @@ class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Cal
     function initFixture(array $data)
     {
         $this->dataIn = $data["dataIn"];
+        $this->errorMetaInput = $data["errorMetaInput"];
     }
 
     /**
@@ -46,10 +50,20 @@ class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Cal
      * @doesNotPerformAssertions
      * @test
      */
-    function Then_Deserialize_ErrorMetaDto_Is_Called()
+    function Then_Deserialize_ErrorMetaDto_Is_Called_With_Valid_Args()
     {
         $this->mockErrorMetaSerializer
-            ->shouldHaveReceived("deserialize",[$this->errorMetaInput])
+            ->shouldHaveReceived("deserialize",[$this->errorMetaInput]);
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     * @test
+     */
+    function Then_Deserialize_ErrorMetaDto_Is_Called_Once()
+    {
+        $this->mockErrorMetaSerializer
+            ->shouldHaveReceived("deserialize")
             ->once();
     }
 }
