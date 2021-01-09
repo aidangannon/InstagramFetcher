@@ -15,19 +15,18 @@ class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Cal
     function setUpClassProperties()
     {
         $this->mockErrorMetaSerializer
-            ->shouldReceive("")
+            ->shouldReceive("deserialize")
             ->andThrows(new ErrorDtoDeserializationError());
     }
 
     function fixtureProvider(): array
     {
-        $errorMetaInput=["invalidData2"=>"data","invalidData3"=>"data2"];
 
         return [
             [
                 "dataIn"=>
-                    ["data"=>$errorMetaInput],
-                "errorMetaInput"=>$errorMetaInput
+                    ["error"=>["invalidData2"=>"data","invalidData3"=>"data2"]],
+                "errorMetaInput"=>["invalidData2"=>"data","invalidData3"=>"data2"]
             ]
         ];
     }

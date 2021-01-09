@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace InstaFetcher\DataAccess\Dtos\Serializers;
 
 
-use BadMethodCallException;
 use InstaFetcher\DataAccess\Dtos\ErrorDto;
+use InstaFetcher\DataAccess\Dtos\Serializers\Exception\ErrorDtoDeserializationError;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorMetaDtoSerializer;
 
@@ -20,6 +20,11 @@ class ErrorDtoSerializer implements IErrorDtoSerializer
 
     public function deserialize(array $error): ErrorDto
     {
-        throw new BadMethodCallException("not implemented");
+        if (isset($error[ErrorDto::ERROR_FIELD])) {
+            $errorMeta = $this->errorMetaSerializer->deserialize($error[ErrorDto::ERROR_FIELD]);
+            return new ErrorDto($errorMeta);
+        } else {
+            throw new ErrorDtoDeserializationError();
+        }
     }
 }

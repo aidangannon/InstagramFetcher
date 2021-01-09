@@ -29,13 +29,13 @@ class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Calle
 
         return [
             [
-                "dataIn"=>["data"=>$errorMetaInput],
+                "dataIn"=>["error"=>$errorMetaInput],
                 "errorMetaInput"=>$errorMetaInput,
                 "expectedResult"=>new ErrorDto($errorMeta),
                 "errorMetaResult"=>$errorMeta
             ],
             [
-                "dataIn"=>["data"=>$errorMetaInput,"extraField"=>"extra"],
+                "dataIn"=>["error"=>$errorMetaInput,"extraField"=>"extra"],
                 "errorMetaInput"=>$errorMetaInput,
                 "expectedResult"=>new ErrorDto($errorMeta),
                 "errorMetaResult"=>$errorMeta
