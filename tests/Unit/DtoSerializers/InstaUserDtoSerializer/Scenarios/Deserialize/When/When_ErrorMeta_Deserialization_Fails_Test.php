@@ -5,7 +5,7 @@ namespace InstaFetcherTests\Unit\DtoSerializers\InstaUserDtoSerializer\Scenarios
 
 
 use InstaFetcher\DataAccess\Dtos\Serializers\Exception\InstaUserDtoDeserializationError;
-use InstaFetcherTests\Unit\DtoSerializers\ErrorMetaDtoSerializer\Scenarios\Deserialize\Given_Deserialize_Is_Called;
+use InstaFetcherTests\Unit\DtoSerializers\InstaUserDtoSerializer\Scenarios\Deserialize\Given_Deserialize_Is_Called;
 
 class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
 {
