@@ -8,6 +8,7 @@ use InstaFetcher\DataAccess\Dtos\ErrorDto;
 use InstaFetcher\DataAccess\Dtos\Serializers\Exception\ErrorDtoDeserializationError;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorMetaDtoSerializer;
+use TypeError;
 
 class ErrorDtoSerializer implements IErrorDtoSerializer
 {
@@ -20,10 +21,15 @@ class ErrorDtoSerializer implements IErrorDtoSerializer
 
     public function deserialize(array $error): ErrorDto
     {
-        if (isset($error[ErrorDto::ERROR_FIELD])) {
-            $errorMeta = $this->errorMetaSerializer->deserialize($error[ErrorDto::ERROR_FIELD]);
-            return new ErrorDto($errorMeta);
-        } else {
+        try {
+            if (isset($error[ErrorDto::ERROR_FIELD])) {
+                $errorMeta = $this->errorMetaSerializer->deserialize($error[ErrorDto::ERROR_FIELD]);
+                return new ErrorDto($errorMeta);
+            } else {
+                throw new ErrorDtoDeserializationError();
+            }
+        }
+        catch(TypeError $e){
             throw new ErrorDtoDeserializationError();
         }
     }

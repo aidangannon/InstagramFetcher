@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace InstaFetcherTests\Unit\DtoSerializers\ErrorDtoSerializer\Scenarios\Deserialize\When;
 
@@ -36,6 +36,10 @@ class When_Error_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
             [
                 "dataIn"=>
                     []
+            ],
+            [
+                "dataIn"=>
+                    ["error"=>"notAnArray"]
             ]
         ];
     }
