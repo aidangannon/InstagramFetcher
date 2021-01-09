@@ -2,14 +2,11 @@
 
 namespace InstaFetcher\DataAccess\Dtos;
 
-use Pinq\Traversable;
-use ReflectionObject;
-use ReflectionProperty;
-
 class InstaUserDto
 {
     public const ID_FIELD = "id";
     public const FOLLOWERS_FIELD = "followers_count";
+    public const USERNAME_FIELD = "username";
 
     public string $id;
 
