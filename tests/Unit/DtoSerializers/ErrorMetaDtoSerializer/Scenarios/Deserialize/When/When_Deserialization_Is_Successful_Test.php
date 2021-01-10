@@ -41,7 +41,7 @@ class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Calle
     /**
      * @test
      */
-    function Then_ErrorDto_Is_Returned()
+    function Then_ErrorMetaDto_Is_Returned()
     {
         self::assertEquals($this->expectedResult,$this->result);
     }

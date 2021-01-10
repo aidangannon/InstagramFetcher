@@ -61,7 +61,7 @@ class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Cal
     /**
      * @test
      */
-    function Then_ErrorDtoDeserializationError_Should_Be_Thrown()
+    function Then_InstaUserDtoDeserializationError_Should_Be_Thrown()
     {
         self::assertInstanceOf(InstaUserDtoDeserializationError::class,$this->exception);
     }
