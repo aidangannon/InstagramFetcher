@@ -4,10 +4,13 @@
 namespace InstaFetcherTests\Unit\DtoSerializers\FacebookPageDtoSerializer\Scenarios\Deserialize\When;
 
 
-use InstaFetcher\DataAccess\Dtos\Serializers\Exception\FacebookPagesDtoDeserializationError;
 use InstaFetcher\DataAccess\Dtos\Serializers\Exception\InstaUserDtoDeserializationError;
 use InstaFetcherTests\Unit\DtoSerializers\FacebookPageDtoSerializer\Scenarios\Deserialize\Given_Deserialize_Is_Called;
 
+/**
+ * <u> covers situations: </u>
+ * * when schema changes
+ */
 class When_InstaUser_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
 {
 
@@ -17,7 +20,7 @@ class When_InstaUser_Deserialization_Fails_Test extends Given_Deserialize_Is_Cal
     {
         $this->mockInstaUserDtoSerializer
             ->shouldReceive("deserialize")
-            ->andThrows(new FacebookPagesDtoDeserializationError());
+            ->andThrows(new InstaUserDtoDeserializationError());
     }
 
     function fixtureProvider(): array

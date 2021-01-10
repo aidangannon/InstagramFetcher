@@ -7,7 +7,11 @@ namespace InstaFetcherTests\Unit\DtoSerializers\InstaUserDtoSerializer\Scenarios
 use InstaFetcher\DataAccess\Dtos\Serializers\Exception\InstaUserDtoDeserializationError;
 use InstaFetcherTests\Unit\DtoSerializers\InstaUserDtoSerializer\Scenarios\Deserialize\Given_Deserialize_Is_Called;
 
-class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
+/**
+ * <u> covers situations: </u>
+ * * when schema changes
+ */
+class When_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
 {
 
     function setUpClassProperties()

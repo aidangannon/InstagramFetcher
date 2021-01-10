@@ -8,6 +8,10 @@ use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcherTests\Unit\DtoSerializers\FacebookPageDtoSerializer\Scenarios\Deserialize\Given_Deserialize_Is_Called;
 
+/**
+ * <u> covers situations: </u>
+ * * when schema remains the same
+ */
 class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Called
 {
 
@@ -30,13 +34,13 @@ class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Calle
         return
             [
                 [
-                    "dataIn"=>["instagram_business_account"=>$userDto,"id"=>"12321312"],
+                    "dataIn"=>["instagram_business_account"=>$userArray,"id"=>"12321312"],
                     "pageReturn"=>new FacebookPageDto("12321312",$userDto),
                     "instaUserInput"=>$userArray,
                     "instaUserReturn"=>$userDto
                 ],
                 [
-                    "dataIn"=>["instagram_business_account"=>$userDto,"id"=>"12321312","extra_field"=>1231],
+                    "dataIn"=>["instagram_business_account"=>$userArray,"id"=>"12321312","extra_field"=>1231],
                     "pageReturn"=>new FacebookPageDto("12321312",$userDto),
                     "instaUserInput"=>$userArray,
                     "instaUserReturn"=>$userDto
