@@ -7,6 +7,10 @@ namespace InstaFetcherTests\Unit\DtoSerializers\ErrorDtoSerializer\Scenarios\Des
 use InstaFetcher\DataAccess\Dtos\Serializers\Exception\ErrorDtoDeserializationError;
 use InstaFetcherTests\Unit\DtoSerializers\ErrorDtoSerializer\Scenarios\Deserialize\Given_Deserialize_Is_Called;
 
+/**
+ * <u> covers situations: </u>
+ * * when error meta schema is modified
+ */
 class When_ErrorMeta_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
 {
 

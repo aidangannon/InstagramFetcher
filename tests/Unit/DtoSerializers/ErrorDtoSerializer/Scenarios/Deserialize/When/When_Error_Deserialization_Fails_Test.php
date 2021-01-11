@@ -8,8 +8,7 @@ use InstaFetcherTests\Unit\DtoSerializers\ErrorDtoSerializer\Scenarios\Deseriali
 
 /**
  * <u> covers situations: </u>
- * * when an unknown error response is sent from graph api
- * * when facebook graph error schema changes
+ * * when error schema is modified
  */
 class When_Error_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
 {

@@ -7,6 +7,10 @@ namespace InstaFetcherTests\Unit\DtoSerializers\ErrorMetaDtoSerializer\Scenarios
 use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcherTests\Unit\DtoSerializers\ErrorMetaDtoSerializer\Scenarios\Deserialize\Given_Deserialize_Is_Called;
 
+/**
+ * <u> covers situations: </u>
+ * * when schema remains the same
+ */
 class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Called
 {
 
@@ -41,7 +45,7 @@ class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Calle
     /**
      * @test
      */
-    function Then_ErrorDto_Is_Returned()
+    function Then_ErrorMetaDto_Is_Returned()
     {
         self::assertEquals($this->expectedResult,$this->result);
     }
