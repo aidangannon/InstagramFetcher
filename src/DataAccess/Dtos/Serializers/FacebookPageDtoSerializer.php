@@ -32,6 +32,12 @@ class FacebookPageDtoSerializer implements IFacebookPageDtoSerializer
                     $this->userSerializer->deserialize($page[FacebookPageDto::INSTA_USER_FIELD])
                 );
             }
+            elseif (
+                isset($page[FacebookPageDto::ID_FIELD]) &&
+                !(isset($page[FacebookPageDto::INSTA_USER_FIELD]))
+            ) {
+                return new FacebookPageDto($page[FacebookPageDto::ID_FIELD]);
+            }
             else{
                 throw new FacebookPagesDtoDeserializationError();
             }
