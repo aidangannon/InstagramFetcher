@@ -49,15 +49,6 @@ class When_Page_Deserialization_Fails_Test extends Given_Deserialize_Is_Called
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_The_First_FacebookPage_Should_Be_Deserialized_With_Correct_Args(){
-        $this->mockFacebookPageDtoSerializer
-            ->shouldHaveReceived("deserialize",$this->facebookPageInput[0]);
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
     public function Then_FacebookPage_Should_Be_Attempted_To_Be_Deserialized_Once(){
         $this->mockFacebookPageDtoSerializer
             ->shouldHaveReceived("deserialize")

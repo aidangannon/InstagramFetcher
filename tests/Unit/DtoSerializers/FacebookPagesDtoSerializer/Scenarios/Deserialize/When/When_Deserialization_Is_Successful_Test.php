@@ -27,7 +27,7 @@ class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Calle
     {
         $this->mockFacebookPageDtoSerializer
             ->shouldReceive("deserialize")
-            ->andReturns(...$this->facebookPageReturnList);
+            ->andReturn(...$this->facebookPageReturnList);
     }
 
     function fixtureProvider(): array
@@ -72,9 +72,10 @@ class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Calle
      * @test
      */
     public function Then_Each_FacebookPage_Should_Be_Deserialized_With_Correct_Args(){
-        foreach($this->facebookPageInputArray as $facebookPage)
-        $this->mockFacebookPageDtoSerializer
-            ->shouldHaveReceived("deserialize",$facebookPage);
+        foreach($this->facebookPageInputArray as $facebookPage) {
+            $this->mockFacebookPageDtoSerializer
+                ->shouldHaveReceived("deserialize", [$facebookPage]);
+        }
     }
 
     /**
