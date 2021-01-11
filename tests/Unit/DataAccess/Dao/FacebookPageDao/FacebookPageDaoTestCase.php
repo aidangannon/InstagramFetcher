@@ -7,7 +7,7 @@ namespace InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao;
 use InstaFetcher\DataAccess\Http\SymfonyHttp\FacebookPageSymfonyHttpDao;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IFacebookPagesDtoSerializer;
-use InstaFetcherTests\Unit\GwtTestCase;
+use InstaFetcherTests\GwtTestCase;
 use Mockery;
 use Mockery\MockInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

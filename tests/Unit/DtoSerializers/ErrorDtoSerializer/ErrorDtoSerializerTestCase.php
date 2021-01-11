@@ -6,7 +6,7 @@ namespace InstaFetcherTests\Unit\DtoSerializers\ErrorDtoSerializer;
 
 use InstaFetcher\DataAccess\Dtos\Serializers\ErrorDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorMetaDtoSerializer;
-use InstaFetcherTests\Unit\GwtTestCase;
+use InstaFetcherTests\GwtTestCase;
 use Mockery;
 use Mockery\MockInterface;
 

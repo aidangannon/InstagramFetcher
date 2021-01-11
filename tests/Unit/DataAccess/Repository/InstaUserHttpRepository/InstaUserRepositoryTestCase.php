@@ -8,11 +8,9 @@ use InstaFetcher\DataAccess\Http\Repository\InstaUserHttpRepository;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IFacebookPageDao;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IInstaUserDao;
 use InstaFetcher\DomainModels\Session\FacebookGraphSessionModel;
-use InstaFetcherTests\Unit\GwtTestCase;
+use InstaFetcherTests\GwtTestCase;
 use Mockery;
 use Mockery\MockInterface;
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\TestResult;
 
 abstract class InstaUserRepositoryTestCase extends GwtTestCase
 {

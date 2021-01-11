@@ -6,7 +6,7 @@ namespace InstaFetcherTests\Unit\DtoSerializers\FacebookPagesDtoSerializer;
 
 use InstaFetcher\DataAccess\Dtos\Serializers\FacebookPagesDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IFacebookPageDtoSerializer;
-use InstaFetcherTests\Unit\GwtTestCase;
+use InstaFetcherTests\GwtTestCase;
 use Mockery;
 use Mockery\MockInterface;
 
