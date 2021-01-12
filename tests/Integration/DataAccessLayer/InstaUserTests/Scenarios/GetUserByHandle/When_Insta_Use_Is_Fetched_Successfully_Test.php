@@ -53,6 +53,12 @@ class When_Insta_Use_Is_Fetched_Successfully_Test extends Given_User_Tries_To_Ge
                             ],
                             "id"=>"118367810031193"
                         ]
+                    ],
+                    "paging"=> [
+                        "cursors"=> [
+                            "before"=> "MTAwMzYxNDk0NzEwOTAx",
+                            "after"=> "MTE4MzY3ODEwMDMxMTkz"
+                        ]
                     ]
                 ],
                 "handle"=>"aidan_gannonnn",
@@ -88,6 +94,12 @@ class When_Insta_Use_Is_Fetched_Successfully_Test extends Given_User_Tries_To_Ge
                                 "id"=>"17841428350043229"
                             ],
                             "id"=>"118367810031193"
+                        ]
+                    ],
+                    "paging"=> [
+                        "cursors"=> [
+                            "before"=> "MTAwMzYxNDk0NzEwOTAx",
+                            "after"=> "MTE4MzY3ODEwMDMxMTkz"
                         ]
                     ]
                 ],
