@@ -48,14 +48,5 @@ jobs:
       - name: Install dependencies
         run: composer install
 
-      - name: Create enviroment variables
-        run: |
-          touch .env
-          echo "BASE_URL=https://graph.facebook.com/v9.0/" >> .env
-          echo APP_SECRET=${{ secrets.APP_SECRET }} >> .env
-          echo APP_ID=${{ secrets.APP_ID }} >> .env
-          echo OPEN_GRAPH_USER_TOKEN=${{ secrets.OPEN_GRAPH_USER_TOKEN }} >> .env
-          echo OPEN_GRAPH_USER_PAGE_ID=${{ secrets.OPEN_GRAPH_USER_PAGE_ID }} >> .env
-
       - name: Run smoke tests
         run: vendor/bin/phing smoke_tests
