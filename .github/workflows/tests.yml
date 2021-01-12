@@ -18,6 +18,10 @@ jobs:
       - name: Install dependencies
         run: composer install
 
+      - name: Create enviroment variables
+        run: |
+          touch .env
+
       - name: Run unit tests
         run: vendor/bin/phing unit_tests
 
@@ -32,6 +36,10 @@ jobs:
 
       - name: Install dependencies
         run: composer install
+
+      - name: Create enviroment variables
+        run: |
+          touch .env
 
       - name: Run integration tests
         run: vendor/bin/phing integration_tests
