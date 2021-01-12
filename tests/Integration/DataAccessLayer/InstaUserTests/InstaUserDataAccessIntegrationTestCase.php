@@ -47,7 +47,7 @@ abstract class InstaUserDataAccessIntegrationTestCase extends GwtTestCase
         $this->mockSession = Mockery::mock(FacebookGraphSessionModel::class);
         $this->mockSession
             ->shouldReceive("getToken")
-            ->andReturn(self::TEST_ACCESS_TOKEN);
+            ->andReturns(self::TEST_ACCESS_TOKEN);
         $this->mockResponse = Mockery::mock(ResponseInterface::class);
         $this->mockHttpClient = Mockery::mock(HttpClientInterface::class);
 

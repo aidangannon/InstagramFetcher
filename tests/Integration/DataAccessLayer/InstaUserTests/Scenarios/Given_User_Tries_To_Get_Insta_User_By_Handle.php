@@ -17,7 +17,7 @@ abstract class Given_User_Tries_To_Get_Insta_User_By_Handle extends InstaUserDat
     public function when()
     {
         try{
-            $this->sut->getByHandle($this->handle);
+            $this->user = $this->sut->getByHandle($this->handle);
         }
         catch(Exception $e){
             $this->exception = $e;

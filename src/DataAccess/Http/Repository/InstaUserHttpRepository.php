@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace InstaFetcher\DataAccess\Http\Repository;
 
 
-use BadMethodCallException;
 use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IFacebookPageDao;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IInstaUserDao;
@@ -31,7 +30,8 @@ class InstaUserHttpRepository implements IInstaUserRepository
 
     public function getByHandle(string $handle): InstaUserModel
     {
-        $pages = $this->pageDao->getInstaAccounts($this->session->getToken());
+        $token=$this->session->getToken();
+        $pages = $this->pageDao->getInstaAccounts($token);
 
         foreach($pages->data as $page){
 
