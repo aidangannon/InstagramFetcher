@@ -12,9 +12,9 @@ class ErrorMetaDataDto
 
     public string $type;
     public int $code;
-    public int $subCode;
+    public ?int $subCode;
 
-    public function __construct(string $type, int $code, int $subCode)
+    public function __construct(string $type, int $code, int $subCode=null)
     {
         $this->type = $type;
         $this->code = $code;

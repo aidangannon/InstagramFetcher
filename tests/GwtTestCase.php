@@ -5,10 +5,9 @@ namespace InstaFetcherTests;
 
 
 use Mockery;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestResult;
 
-abstract class GwtTestCase extends TestCase
+abstract class GwtTestCase extends UnitTestCase
 {
     /**
      * runs test for each fixture
