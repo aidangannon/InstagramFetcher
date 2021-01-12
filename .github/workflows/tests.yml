@@ -5,7 +5,7 @@ on:
     branches: [ master ]
   push:
     branches:
-      - '*'
+      - [ master ]
 
 jobs:
   unit-tests:
@@ -35,5 +35,5 @@ jobs:
       - name: Install dependencies
         run: composer install
 
-      - name: Run unit tests
-        run: vendor/bin/phing unit_tests
+      - name: Run integration tests
+        run: vendor/bin/phing integration_tests
