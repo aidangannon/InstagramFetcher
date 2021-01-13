@@ -49,6 +49,7 @@ class When_Graph_Error_Occurs_Test extends Given_User_Tries_To_Get_Insta_User_By
                     new ErrorMetaDataDto(
                         "OAuthException",
                         190,
+                        "Message describing the error",
                         460
                     )
                 )

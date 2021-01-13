@@ -7,7 +7,6 @@ namespace InstaFetcherTests\Smoke\FacebookGraphApi;
 use Exception;
 use InstaFetcher\DataAccess\Dtos\ErrorDto;
 use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
-use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\Serializers\ErrorDtoSerializer;
 use InstaFetcher\DataAccess\Dtos\Serializers\ErrorMetaDtoSerializer;
@@ -41,7 +40,7 @@ class GetOpenGraphUserPagesTest extends UnitTestCase
                 )
             )
         );
-        $expectedPages = new FacebookPagesDto([new FacebookPageDto($_ENV['OPEN_GRAPH_USER_PAGE_ID'])]);
+        $expectedPages = new FacebookPagesDto([]);
 
         //act
         $actualPages = $pagesDao->getInstaAccounts($_ENV['OPEN_GRAPH_USER_TOKEN']);
@@ -87,7 +86,8 @@ class GetOpenGraphUserPagesTest extends UnitTestCase
                 new ErrorDto(
                     new ErrorMetaDataDto(
                         "OAuthException",
-                        190
+                        190,
+                        "Invalid OAuth access token."
                     )
                 ),
                 $e->getGraphError()

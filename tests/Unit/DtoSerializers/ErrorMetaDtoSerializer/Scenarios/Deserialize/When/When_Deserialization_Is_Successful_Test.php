@@ -26,16 +26,16 @@ class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Calle
 
         return [
             [
-                "dataIn"=>["type"=>"Auth","code"=>1212,"error_subcode"=>212],
-                "expectedResult"=>new ErrorMetaDataDto("Auth",1212,212),
+                "dataIn"=>["type"=>"Auth","code"=>1212,"message"=>"random message","error_subcode"=>212],
+                "expectedResult"=>new ErrorMetaDataDto("Auth",1212,"random message",212),
             ],
             [
-                "dataIn"=>["type"=>"Auth","code"=>1212],
-                "expectedResult"=>new ErrorMetaDataDto("Auth",1212),
+                "dataIn"=>["type"=>"Auth","code"=>1212,"message"=>"random message"],
+                "expectedResult"=>new ErrorMetaDataDto("Auth",1212,"random message"),
             ],
             [
-                "dataIn"=>["type"=>"Auth","code"=>1212,"error_subcode"=>212,"extraField"=>21212321],
-                "expectedResult"=>new ErrorMetaDataDto("Auth",1212,212)
+                "dataIn"=>["type"=>"Auth","code"=>1212,"message"=>"random message","error_subcode"=>212,"extraField"=>21212321],
+                "expectedResult"=>new ErrorMetaDataDto("Auth",1212,"random message",212)
             ]
         ];
     }
