@@ -7,16 +7,12 @@ namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\S
 use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_Insta_User_By_Handle;
 
 /**
- * <u> covers situations: </u>
- * * if no pages arent authorized
- * * if no insta accounts are authorized
- * * if user doesnt have any pages or insta accounts
- * * if pages arent linked with insta accounts
+ * @testdox Given User Tries To Get Insta User By Handle, When No Insta Users Returned (DataAccess/Repository)
  */
-class When_No_Insta_Users_Returned_Test extends Given_User_Tries_To_Get_User_By_Handle
+class When_No_Insta_Users_Returned_Test extends Given_User_Tries_To_Get_Insta_User_By_Handle
 {
     protected FacebookPagesDto $pages;
 
@@ -77,15 +73,7 @@ class When_No_Insta_Users_Returned_Test extends Given_User_Tries_To_Get_User_By_
     /**
      * @test
      */
-    public function Then_User_Should_Not_Be_Returned()
-    {
-        self::assertFalse(isset($this->user));
-    }
-
-    /**
-     * @test
-     */
-    public function Then_InstaUserNotFound_Exception_Should_Be_Thrown()
+    public function Then_User_Not_Found_Error_Should_Occur()
     {
         self::assertTrue($this->exception instanceof InstaUserNotFound);
     }

@@ -4,14 +4,13 @@ declare(strict_types=1);
 namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\When;
 
 
-use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
-use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
-use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\Given_User_Tries_To_Get_User_By_Id;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\Given_User_Tries_To_Get_Insta_User_By_Id;
 
-class When_Account_Received_Successfully_Test extends Given_User_Tries_To_Get_User_By_Id
+/**
+ * @testdox Given User Tries To Get Insta User By Id, When Received Successfully (DataAccess/Repository)
+ */
+class When_Account_Received_Successfully_Test extends Given_User_Tries_To_Get_Insta_User_By_Id
 {
 
     protected InstaUserDto $userDto;
@@ -48,16 +47,9 @@ class When_Account_Received_Successfully_Test extends Given_User_Tries_To_Get_Us
     /**
      * @test
      */
-    public function Then_User_Returned_Should_Equal_The_Retrieved_User(){
+    public function Then_Correct_User_Should_Be_Returned(){
         self::assertEquals($this->userDto->id,$this->user->getId());
         self::assertEquals($this->userDto->followersCount,$this->user->getFollowers());
         self::assertEquals($this->userDto->username,$this->user->getHandle());
-    }
-
-    /**
-     * @test
-     */
-    public function Then_Token_Exception_Is_Not_Thrown(){
-        self::assertFalse(isset($this->exception));
     }
 }

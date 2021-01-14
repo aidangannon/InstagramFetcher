@@ -8,15 +8,12 @@ use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_Insta_User_By_Handle;
 
 /**
- * <u> covers situations: </u>
- * * if insta user doesnt exist
- * * if insta user is not authorized currently
- * * if insta user doesnt belong to user
+ * @testdox Given User Tries To Get Insta User By Handle, When One Insta User Belongs To Several Pages (DataAccess/Repository)
  */
-class When_One_Insta_User_Belongs_To_Several_Pages_Test extends Given_User_Tries_To_Get_User_By_Handle
+class When_One_Insta_User_Belongs_To_Several_Pages_TestInsta extends Given_User_Tries_To_Get_Insta_User_By_Handle
 {
     protected FacebookPagesDto $pages;
 
@@ -66,16 +63,9 @@ class When_One_Insta_User_Belongs_To_Several_Pages_Test extends Given_User_Tries
     /**
      * @test
      */
-    public function Then_User_Returned_Should_Equal_The_Retrieved_User()
+    public function Then_Correct_User_Should_Be_Returned()
     {
         self::assertEquals(new InstaUserModel("22222", 100, "example_handle"), $this->user);
     }
 
-    /**
-     * @test
-     */
-    public function Then_InstaUserNotFound_Exception_Is_Not_Thrown()
-    {
-        self::assertFalse(isset($this->exception));
-    }
 }

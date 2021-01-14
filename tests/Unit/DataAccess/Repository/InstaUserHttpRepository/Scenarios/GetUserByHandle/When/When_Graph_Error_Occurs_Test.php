@@ -6,16 +6,12 @@ namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\S
 use InstaFetcher\DataAccess\Dtos\ErrorDto;
 use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_Insta_User_By_Handle;
 
 /**
- * @testdox Given user tries to get user by handle, when a graph error occurs
- * <u> covers situations: </u>
- * * token expires
- * * token is invalid
- * * user doesnt have pages permission
+ * @testdox Given User Tries To Get Insta User By Handle, When Graph Error Occurs (DataAccess/Repository)
  */
-class WhenGraphErrorOccursTest extends Given_User_Tries_To_Get_User_By_Handle
+class When_Graph_Error_Occurs_Test extends Given_User_Tries_To_Get_Insta_User_By_Handle
 {
     protected GraphException $tokenException;
 
@@ -49,10 +45,9 @@ class WhenGraphErrorOccursTest extends Given_User_Tries_To_Get_User_By_Handle
     }
 
     /**
-     * @testdox User will not be found
      * @test
      */
-    public function Then_InstaUserNotFound_Exception_Should_Be_Thrown()
+    public function Then_User_Not_Found_Error_Should_Occur()
     {
         self::assertEquals($this->exception, $this->tokenException);
     }

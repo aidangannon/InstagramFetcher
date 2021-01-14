@@ -8,11 +8,7 @@ use Exception;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\InstaUserRepositoryTestCase;
 
-/**
- * <u> covers situations: </u>
- * * when user wants to search for specific insta user by handle once and save their id
- */
-abstract class Given_User_Tries_To_Get_User_By_Handle extends InstaUserRepositoryTestCase
+abstract class Given_User_Tries_To_Get_Insta_User_By_Handle extends InstaUserRepositoryTestCase
 {
     protected string $token;
     protected string $handle;
@@ -33,7 +29,7 @@ abstract class Given_User_Tries_To_Get_User_By_Handle extends InstaUserRepositor
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_Token_Should_Be_Received_From_Facebook_Session()
+    public function Then_Token_Should_Have_Been_Received_From_Facebook_Session()
     {
         $this->mockSession
             ->shouldHaveReceived("getToken");
@@ -43,7 +39,7 @@ abstract class Given_User_Tries_To_Get_User_By_Handle extends InstaUserRepositor
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_Insta_Accounts_Should_Be_Fetched_From_Session_Token()
+    public function Then_Insta_Accounts_Should_Have_Been_Fetched_From_Session_Token()
     {
         $this->mockPageDao
             ->shouldHaveReceived("getInstaAccounts")

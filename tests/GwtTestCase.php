@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestResult;
 
 abstract class GwtTestCase extends UnitTestCase
 {
+
     /**
      * runs test for each fixture
      */

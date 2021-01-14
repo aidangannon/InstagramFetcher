@@ -8,11 +8,7 @@ use Exception;
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\InstaUserRepositoryTestCase;
 
-/**
- * <u> covers situations: </u>
- * * when user wants to get insta profile
- */
-abstract class Given_User_Tries_To_Get_User_By_Id extends InstaUserRepositoryTestCase
+abstract class Given_User_Tries_To_Get_Insta_User_By_Id extends InstaUserRepositoryTestCase
 {
     protected string $token;
     protected string $id;

@@ -7,15 +7,12 @@ namespace InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\S
 use InstaFetcher\DataAccess\Dtos\ErrorDto;
 use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
-use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\Given_User_Tries_To_Get_User_By_Id;
+use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserById\Given_User_Tries_To_Get_Insta_User_By_Id;
 
 /**
- * <u> covers situations: </u>
- * * when token is invalid
- * * when insta user doesnt exist
- * * when insta user doesnt belong to user
+ * @testdox Given User Tries To Get Insta User By Id, When Graph Error Occurs (DataAccess/Repository)
  */
-class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Id
+class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_Insta_User_By_Id
 {
 
     private GraphException $tokenException;
@@ -54,7 +51,7 @@ class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Id
     /**
      * @test
      */
-    public function Then_TokenNotAuthorized_Exception_Is_Thrown(){
+    public function Then_Token_Not_Authorized_Error_Occurs(){
         self::assertEquals($this->tokenException,$this->exception);
     }
 }
