@@ -37,7 +37,7 @@ class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Id
 
         return [
             [
-                "tokenException"=>new GraphException(new ErrorDto(new ErrorMetaDataDto("OAuthError",190,0))),
+                "tokenException"=>new GraphException(new ErrorDto(new ErrorMetaDataDto("OAuthError",190,"message",0))),
                 "token"=>$token,
                 "id"=>"33333"
             ]

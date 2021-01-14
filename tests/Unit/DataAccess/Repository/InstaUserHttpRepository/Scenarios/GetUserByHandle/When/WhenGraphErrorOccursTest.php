@@ -9,12 +9,13 @@ use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphExcep
 use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_User_By_Handle;
 
 /**
+ * @testdox Given user tries to get user by handle, when a graph error occurs
  * <u> covers situations: </u>
  * * token expires
  * * token is invalid
  * * user doesnt have pages permission
  */
-class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Handle
+class WhenGraphErrorOccursTest extends Given_User_Tries_To_Get_User_By_Handle
 {
     protected GraphException $tokenException;
 
@@ -48,6 +49,7 @@ class When_GraphError_Occurs_Test extends Given_User_Tries_To_Get_User_By_Handle
     }
 
     /**
+     * @testdox User will not be found
      * @test
      */
     public function Then_InstaUserNotFound_Exception_Should_Be_Thrown()

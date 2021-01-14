@@ -5,7 +5,7 @@ namespace InstaFetcherTests\Unit\DtoSerializers\ErrorMetaDtoSerializer;
 
 
 use InstaFetcher\DataAccess\Dtos\Serializers\ErrorMetaDtoSerializer;
-use InstaFetcherTests\Unit\GwtTestCase;
+use InstaFetcherTests\GwtTestCase;
 
 abstract class ErrorMetaDtoSerializerTestCase extends GwtTestCase
 {

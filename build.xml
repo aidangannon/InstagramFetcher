@@ -15,6 +15,30 @@
     </target>
 
     <!-- ============================================  -->
+    <!-- Integration Tests                             -->
+    <!-- ============================================  -->
+    <target name="integration_tests">
+        <exec
+                command="${project.basedir}/${bin-dir}/phpunit --configuration integration.xml"
+                logoutput="true"
+                passthru="true"
+                checkreturn="true"
+        />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Smoke Tests                                   -->
+    <!-- ============================================  -->
+    <target name="smoke_tests">
+        <exec
+                command="${project.basedir}/${bin-dir}/phpunit --configuration smoke.xml"
+                logoutput="true"
+                passthru="true"
+                checkreturn="true"
+        />
+    </target>
+
+    <!-- ============================================  -->
     <!-- Properties                                    -->
     <!-- ============================================  -->
     <property name="php-exec" value="php" />

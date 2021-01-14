@@ -29,7 +29,7 @@ class When_Deserialization_Is_Successful_Test extends Given_Deserialize_Is_Calle
     function fixtureProvider(): array
     {
         $errorMetaInput=["type"=>"testType","code"=>102,"error_subcode"=>121];
-        $errorMeta = new ErrorMetaDataDto("testType",102,121);
+        $errorMeta = new ErrorMetaDataDto("testType",102,"message",121);
 
         return [
             [

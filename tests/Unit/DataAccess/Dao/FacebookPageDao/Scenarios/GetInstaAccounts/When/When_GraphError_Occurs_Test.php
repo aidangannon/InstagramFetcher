@@ -38,7 +38,7 @@ class When_GraphError_Occurs_Test extends Given_User_Tries_To_Fetch_Pages_With_T
     public function fixtureProvider(): array
     {
 
-        $error = new ErrorDto(new ErrorMetaDataDto("BlahBlah",3213,321321));
+        $error = new ErrorDto(new ErrorMetaDataDto("BlahBlah",3213,"random message",321321));
 
         return [
             [

@@ -5,7 +5,7 @@ namespace InstaFetcherTests\Unit\DtoSerializers\InstaUserDtoSerializer;
 
 
 use InstaFetcher\DataAccess\Dtos\Serializers\InstaUserDtoSerializer;
-use InstaFetcherTests\Unit\GwtTestCase;
+use InstaFetcherTests\GwtTestCase;
 
 abstract class InstaUserDtoSerializerTestCase extends GwtTestCase
 {

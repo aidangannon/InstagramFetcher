@@ -4,17 +4,11 @@ declare(strict_types=1);
 namespace InstaFetcher\DataAccess\Http\SymfonyHttp;
 
 
-use HttpException;
 use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
 use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
-use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\FacebookGraphErrorValidator;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IErrorDtoSerializer;
-use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IFacebookPageDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\DtoSerializer\IFacebookPagesDtoSerializer;
 use InstaFetcher\Interfaces\DataAccess\Http\Dao\IFacebookPageDao;
-use InstaFetcher\Interfaces\Validation\IFacebookGraphErrorValidator;
-use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class FacebookPageSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements IFacebookPageDao
@@ -52,9 +46,11 @@ class FacebookPageSymfonyHttpDao extends FacebookGraphSymfonyHttpDao implements 
 
         switch($code){
             case 200:
-                return $this->pagesSerializer->deserialize($response->toArray(false));
+                $resBody=$response->toArray(false);
+                return $this->pagesSerializer->deserialize($resBody);
             default:
-                $error = $this->errorSerializer->deserialize($response->toArray(false));
+                $resBody=$response->toArray(false);
+                $error = $this->errorSerializer->deserialize($resBody);
                 throw new GraphException($error);
         }
     }
