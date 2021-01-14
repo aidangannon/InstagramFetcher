@@ -1,11 +1,11 @@
 <?php
 
 
-namespace InstaFetcherTests\Integration\DataAccessLayer\InstaUserTests\Scenarios\GetUserByHandle;
+namespace InstaFetcherTests\Integration\DataAccessLayer\InstaUserTests\Scenarios\GetUserByHandle\When;
 
 
 use InstaFetcher\DataAccess\Http\Exception\InstaUserNotFound;
-use InstaFetcherTests\Integration\DataAccessLayer\InstaUserTests\Scenarios\Given_User_Tries_To_Get_Insta_User_By_Handle;
+use InstaFetcherTests\Integration\DataAccessLayer\InstaUserTests\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_Insta_User_By_Handle;
 
 class When_No_User_Not_Found_Test extends Given_User_Tries_To_Get_Insta_User_By_Handle
 {

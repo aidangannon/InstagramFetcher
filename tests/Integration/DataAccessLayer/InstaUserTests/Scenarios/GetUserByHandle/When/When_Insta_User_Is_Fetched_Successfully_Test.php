@@ -1,13 +1,13 @@
 <?php
 
 
-namespace InstaFetcherTests\Integration\DataAccessLayer\InstaUserTests\Scenarios\GetUserByHandle;
+namespace InstaFetcherTests\Integration\DataAccessLayer\InstaUserTests\Scenarios\GetUserByHandle\When;
 
 
 use InstaFetcher\DomainModels\InstaUser\InstaUserModel;
-use InstaFetcherTests\Integration\DataAccessLayer\InstaUserTests\Scenarios\Given_User_Tries_To_Get_Insta_User_By_Handle;
+use InstaFetcherTests\Integration\DataAccessLayer\InstaUserTests\Scenarios\GetUserByHandle\Given_User_Tries_To_Get_Insta_User_By_Handle;
 
-class When_Insta_Use_Is_Fetched_Successfully_Test extends Given_User_Tries_To_Get_Insta_User_By_Handle
+class When_Insta_User_Is_Fetched_Successfully_Test extends Given_User_Tries_To_Get_Insta_User_By_Handle
 {
 
     private InstaUserModel $expectedUser;
