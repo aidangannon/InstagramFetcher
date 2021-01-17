@@ -13,7 +13,7 @@ use InstaFetcherTests\Unit\DataAccess\Repository\InstaUserHttpRepository\Scenari
 /**
  * @testdox Given User Tries To Get Insta User By Handle, When Handle Is Invalid (DataAccess/Repository)
  */
-class When_Handle_Is_Invalid_TestInsta extends Given_User_Tries_To_Get_Insta_User_By_Handle
+class When_Handle_Is_Invalid_Test extends Given_User_Tries_To_Get_Insta_User_By_Handle
 {
     protected FacebookPagesDto $pages;
 
@@ -84,7 +84,7 @@ class When_Handle_Is_Invalid_TestInsta extends Given_User_Tries_To_Get_Insta_Use
     /**
      * @test
      */
-    public function Then_User_Not_Found_Error_Should_Occur(){
+    public function Then_User_Not_Found_Error_Occurs(){
         self::assertTrue($this->exception instanceof InstaUserNotFound);
     }
 }

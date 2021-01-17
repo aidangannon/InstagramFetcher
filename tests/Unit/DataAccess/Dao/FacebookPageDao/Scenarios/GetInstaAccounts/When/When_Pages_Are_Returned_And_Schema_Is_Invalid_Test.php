@@ -4,26 +4,23 @@
 namespace InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\When;
 
 
-use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
-use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
-use InstaFetcher\DataAccess\Dtos\InstaUserDto;
+use InstaFetcher\DataAccess\Dtos\Serializers\Exception\FacebookPagesDtoDeserializationError;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users;
 use Mockery;
 use Mockery\MockInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * @testdox Given The User Tries To Fetch All Pages And Insta Users, When Pages Are Returned (DataAccess/Dao)
+ * @testdox Given The User Tries To Fetch All Pages And Insta Users, When Pages Are Returned And Schema Is Invalid Test (DataAccess/Dao)
  */
-class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users
+class When_Pages_Are_Returned_And_Schema_Is_Invalid_Test extends Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users
 {
+
     /**
      * @var ResponseInterface|MockInterface
      */
     protected $mockResponse;
     protected array $response=["response","fake"];
-
-    private FacebookPagesDto $pagesDto;
 
     public function setUpClassProperties()
     {
@@ -32,29 +29,23 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
             ->shouldReceive("request")
             ->andReturns($this->mockResponse);
         $this->mockResponse
-            ->shouldReceive("toArray")
-            ->andReturns($this->response);;
-        $this->mockResponse
             ->shouldReceive("getStatusCode")
             ->andReturns(200);
+        $this->mockResponse
+            ->shouldReceive("toArray")
+            ->andReturns($this->response);;
         $this->mockPagesSerializer
             ->shouldReceive("deserialize")
-            ->andReturns($this->pagesDto);
+            ->andThrows(new FacebookPagesDtoDeserializationError);
     }
 
     public function fixtureProvider(): array
     {
+        $token = "1111";
+
         return [
             [
-                "token"=>"1111",
-                "pagesDto"=>new FacebookPagesDto(
-                    [
-                        new FacebookPageDto(
-                            "11111",
-                            new InstaUserDto("1234",104,"example_handle")
-                        )
-                    ]
-                )
+                "token"=>$token,
             ]
         ];
     }
@@ -62,7 +53,6 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
     public function initFixture(array $data)
     {
         $this->token=$data["token"];
-        $this->pagesDto=$data["pagesDto"];
     }
 
     /**
@@ -136,8 +126,8 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
     /**
      * @test
      */
-    public function Then_Pages_Are_Returned()
+    public function Then_Invalid_Schema_Error_Occurs()
     {
-        self::assertEquals($this->pagesDto,$this->pages);
+        self::assertInstanceOf(FacebookPagesDtoDeserializationError::class,$this->exception);
     }
 }

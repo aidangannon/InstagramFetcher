@@ -11,17 +11,12 @@ use InstaFetcherTests\GwtTestCase;
 use Mockery;
 use Mockery\MockInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 abstract class FacebookPageDaoTestCase extends GwtTestCase
 {
     protected int $appId;
     protected string $appSecret;
     protected string $baseUrl;
-    /**
-     * @var ResponseInterface|MockInterface
-     */
-    protected $mockResponse;
     /**
      * @var HttpClientInterface|MockInterface
      */
@@ -39,7 +34,6 @@ abstract class FacebookPageDaoTestCase extends GwtTestCase
 
     protected function setUp(): void
     {
-        $this->mockResponse = Mockery::mock(ResponseInterface::class);
         $this->mockHttpClient = Mockery::mock(HttpClientInterface::class);
         $this->mockErrorSerializer = Mockery::mock(IErrorDtoSerializer::class);
         $this->mockPagesSerializer = Mockery::mock(IFacebookPagesDtoSerializer::class);

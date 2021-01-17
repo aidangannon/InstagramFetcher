@@ -63,7 +63,7 @@ class When_One_Insta_User_Belongs_To_Several_Pages_TestInsta extends Given_User_
     /**
      * @test
      */
-    public function Then_Correct_User_Should_Be_Returned()
+    public function Then_Correct_User_Is_Returned()
     {
         self::assertEquals(new InstaUserModel("22222", 100, "example_handle"), $this->user);
     }

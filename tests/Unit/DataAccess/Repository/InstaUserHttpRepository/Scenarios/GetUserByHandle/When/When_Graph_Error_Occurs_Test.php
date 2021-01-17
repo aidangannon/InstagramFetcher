@@ -47,7 +47,7 @@ class When_Graph_Error_Occurs_Test extends Given_User_Tries_To_Get_Insta_User_By
     /**
      * @test
      */
-    public function Then_User_Not_Found_Error_Should_Occur()
+    public function Then_User_Not_Found_Error_Occurs()
     {
         self::assertEquals($this->exception, $this->tokenException);
     }

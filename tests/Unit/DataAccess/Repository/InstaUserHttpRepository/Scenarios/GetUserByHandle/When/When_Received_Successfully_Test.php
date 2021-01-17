@@ -103,7 +103,7 @@ class When_Received_Successfully_Test extends Given_User_Tries_To_Get_Insta_User
     /**
      * @test
      */
-    public function Then_Correct_User_Should_Be_Returned()
+    public function Then_Correct_User_Is_Returned()
     {
         self::assertEquals(new InstaUserModel("22222",100,"example_handle"),$this->user);
     }

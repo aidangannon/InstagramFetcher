@@ -29,7 +29,7 @@ abstract class Given_User_Tries_To_Get_Insta_User_By_Handle extends InstaUserRep
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_Token_Should_Have_Been_Received_From_Facebook_Session()
+    public function Then_Token_Were_Received_From_Facebook_Session()
     {
         $this->mockSession
             ->shouldHaveReceived("getToken");
@@ -39,7 +39,7 @@ abstract class Given_User_Tries_To_Get_Insta_User_By_Handle extends InstaUserRep
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_Insta_Accounts_Should_Have_Been_Fetched_From_Session_Token()
+    public function Then_Insta_Accounts_Were_Fetched_From_Session_Token()
     {
         $this->mockPageDao
             ->shouldHaveReceived("getInstaAccounts")

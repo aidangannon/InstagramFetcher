@@ -47,7 +47,7 @@ class When_Account_Received_Successfully_Test extends Given_User_Tries_To_Get_In
     /**
      * @test
      */
-    public function Then_Correct_User_Should_Be_Returned(){
+    public function Then_Correct_User_Is_Returned(){
         self::assertEquals($this->userDto->id,$this->user->getId());
         self::assertEquals($this->userDto->followersCount,$this->user->getFollowers());
         self::assertEquals($this->userDto->username,$this->user->getHandle());

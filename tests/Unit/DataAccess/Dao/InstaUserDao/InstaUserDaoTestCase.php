@@ -11,7 +11,6 @@ use InstaFetcherTests\GwtTestCase;
 use Mockery;
 use Mockery\MockInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 abstract class InstaUserDaoTestCase extends GwtTestCase
 {
@@ -37,17 +36,11 @@ abstract class InstaUserDaoTestCase extends GwtTestCase
      */
     protected $mockUserSerializer;
 
-    /**
-     * @var ResponseInterface|MockInterface
-     */
-    protected $mockResponse;
-
     protected function setUp(): void
     {
         $this->mockHttpClient = Mockery::mock(HttpClientInterface::class);
         $this->mockErrorSerializer = Mockery::mock(IErrorDtoSerializer::class);
         $this->mockUserSerializer = Mockery::mock(IInstaUserDtoSerializer::class);
-        $this->mockResponse = Mockery::mock(ResponseInterface::class);
 
         $this->setUpClassProperties();
 

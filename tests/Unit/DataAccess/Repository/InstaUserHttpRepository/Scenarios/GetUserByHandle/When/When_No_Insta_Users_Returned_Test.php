@@ -73,7 +73,7 @@ class When_No_Insta_Users_Returned_Test extends Given_User_Tries_To_Get_Insta_Us
     /**
      * @test
      */
-    public function Then_User_Not_Found_Error_Should_Occur()
+    public function Then_User_Not_Found_Error_Occurs()
     {
         self::assertTrue($this->exception instanceof InstaUserNotFound);
     }

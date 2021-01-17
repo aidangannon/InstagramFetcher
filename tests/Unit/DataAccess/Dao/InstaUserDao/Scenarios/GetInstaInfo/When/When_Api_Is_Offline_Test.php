@@ -4,16 +4,16 @@
 namespace InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\When;
 
 
-use InstaFetcher\DataAccess\Dtos\InstaUserDto;
 use InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\Given_User_Tries_To_Fetch_Insta_User_Info;
 use Mockery;
 use Mockery\MockInterface;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * @testdox Given User Tries To Fetch Insta User Info, When Insta User Returned (DataAccess/Dao)
+ * @testdox Given The User Tries To Fetch Insta User Info, When The Api Is Offline (DataAccess/Dao)
  */
-class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User_Info
+class When_Api_Is_Offline_Test extends Given_User_Tries_To_Fetch_Insta_User_Info
 {
 
     /**
@@ -22,37 +22,26 @@ class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User
     protected $mockResponse;
     protected array $response=["fake"=>"response"];
 
-    private InstaUserDto $userDto;
-
-    public function setUpClassProperties()
+    function setUpClassProperties()
     {
         $this->mockResponse = Mockery::mock(ResponseInterface::class);
         $this->mockResponse
             ->shouldReceive("getStatusCode")
-            ->andReturns(200);
+            ->andThrow(TransportException::class);
         $this->mockHttpClient
             ->shouldReceive("request")
             ->andReturns($this->mockResponse);
-        $this->mockResponse
-            ->shouldReceive("toArray")
-            ->andReturns($this->response);
-        $this->mockUserSerializer
-            ->shouldReceive("deserialize")
-            ->andReturns($this->userDto);
     }
 
-    public function fixtureProvider(): array
+    function fixtureProvider(): array
     {
-        return [
-            [
-                "userDto"=>new InstaUserDto("000",100,"example_handle")
-            ]
-        ];
+        //TODO: does nothing
+        return [ [ ] ];
     }
 
-    public function initFixture(array $data)
+    function initFixture(array $data)
     {
-        $this->userDto=$data["userDto"];
+        //TODO: does nothing
     }
 
     /**
@@ -80,7 +69,7 @@ class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_Response_Code_Was_Retrieved_For_Validation()
+    public function Then_Response_Code_Was_Attempted_To_Be_Retrieved()
     {
         $this->mockResponse
             ->shouldHaveReceived("getStatusCode")
@@ -91,26 +80,20 @@ class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_The_Response_Body_Was_Retrieved()
+    public function Then_The_Response_Body_Was_Not_Retrieved()
     {
         $this->mockResponse
-            ->shouldHaveReceived("toArray",[false]);
-        $this->mockResponse
-            ->shouldHaveReceived("toArray")
-            ->once();
+            ->shouldNotHaveReceived("toArray");
     }
 
     /**
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_User_Was_Decoded()
+    public function Then_The_User_Was_Not_Decoded()
     {
         $this->mockUserSerializer
-            ->shouldHaveReceived("deserialize",[$this->response]);
-        $this->mockUserSerializer
-            ->shouldHaveReceived("deserialize")
-            ->once();
+            ->shouldNotHaveReceived("deserialize");
     }
 
     /**
@@ -126,8 +109,8 @@ class When_Insta_User_Returned_Test extends Given_User_Tries_To_Fetch_Insta_User
     /**
      * @test
      */
-    public function Then_User_Is_Returned()
+    public function Then_Transport_Layer_Error_Occurs()
     {
-        self::assertEquals($this->userDto,$this->user);
+        self::assertInstanceOf(TransportException::class,$this->exception);
     }
 }

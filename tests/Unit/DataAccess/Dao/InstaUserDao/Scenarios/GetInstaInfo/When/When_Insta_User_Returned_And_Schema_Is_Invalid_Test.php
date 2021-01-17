@@ -1,68 +1,52 @@
 <?php
 
 
-namespace InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\When;
+namespace InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\When;
 
-
-use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
-use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
-use InstaFetcher\DataAccess\Dtos\InstaUserDto;
-use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users;
+use InstaFetcher\DataAccess\Dtos\Serializers\Exception\InstaUserDtoDeserializationError;
+use InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\Given_User_Tries_To_Fetch_Insta_User_Info;
 use Mockery;
 use Mockery\MockInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * @testdox Given The User Tries To Fetch All Pages And Insta Users, When Pages Are Returned (DataAccess/Dao)
+ * @testdox Given User Tries To Fetch Insta User Info, When Insta User Returned And Schema Is Invalid (DataAccess/Dao)
  */
-class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users
+class When_Insta_User_Returned_And_Schema_Is_Invalid_Test extends Given_User_Tries_To_Fetch_Insta_User_Info
 {
+
     /**
      * @var ResponseInterface|MockInterface
      */
     protected $mockResponse;
-    protected array $response=["response","fake"];
-
-    private FacebookPagesDto $pagesDto;
+    protected array $response=["fake"=>"response"];
 
     public function setUpClassProperties()
     {
         $this->mockResponse = Mockery::mock(ResponseInterface::class);
+        $this->mockResponse
+            ->shouldReceive("getStatusCode")
+            ->andThrows(200);
         $this->mockHttpClient
             ->shouldReceive("request")
             ->andReturns($this->mockResponse);
         $this->mockResponse
             ->shouldReceive("toArray")
-            ->andReturns($this->response);;
-        $this->mockResponse
-            ->shouldReceive("getStatusCode")
-            ->andReturns(200);
-        $this->mockPagesSerializer
+            ->andReturns($this->response);
+        $this->mockUserSerializer
             ->shouldReceive("deserialize")
-            ->andReturns($this->pagesDto);
+            ->andThrows(new InstaUserDtoDeserializationError);
     }
 
     public function fixtureProvider(): array
     {
-        return [
-            [
-                "token"=>"1111",
-                "pagesDto"=>new FacebookPagesDto(
-                    [
-                        new FacebookPageDto(
-                            "11111",
-                            new InstaUserDto("1234",104,"example_handle")
-                        )
-                    ]
-                )
-            ]
-        ];
+        //TODO: does nothing
+        return [ ];
     }
 
     public function initFixture(array $data)
     {
-        $this->token=$data["token"];
-        $this->pagesDto=$data["pagesDto"];
+        //TODO: does nothing
     }
 
     /**
@@ -76,8 +60,8 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
                 "request",
                 [
                     'GET',
-                    "{$this->baseUrl}me/accounts?".
-                    "fields=instagram_business_account{username,followers_count}&".
+                    "{$this->baseUrl}{$this->id}?".
+                    "fields=id,username,followers_count&".
                     "access_token={$this->token}&appsecret_proof=".hash_hmac('sha256', $this->token, $this->appSecret)
                 ]
             );
@@ -114,11 +98,11 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_The_Pages_Were_Attempted_To_Be_Decoded()
+    public function Then_The_User_Was_Attempted_To_Be_Decoded()
     {
-        $this->mockPagesSerializer
+        $this->mockUserSerializer
             ->shouldHaveReceived("deserialize",[$this->response]);
-        $this->mockPagesSerializer
+        $this->mockUserSerializer
             ->shouldHaveReceived("deserialize")
             ->once();
     }
@@ -127,7 +111,7 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_Error_Was_Not_Attempted_To_Be_Decoded()
+    public function Then_Error_Was_Not_Decoded()
     {
         $this->mockErrorSerializer
             ->shouldNotHaveReceived("deserialize");
@@ -136,8 +120,8 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
     /**
      * @test
      */
-    public function Then_Pages_Are_Returned()
+    public function Then_Invalid_Schema_Error_Occurs()
     {
-        self::assertEquals($this->pagesDto,$this->pages);
+        self::assertInstanceOf(InstaUserDtoDeserializationError::class,$this->exception);
     }
 }

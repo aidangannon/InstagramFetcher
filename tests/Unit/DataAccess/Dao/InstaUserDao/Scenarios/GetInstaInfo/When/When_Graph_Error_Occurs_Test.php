@@ -1,68 +1,78 @@
 <?php
+declare(strict_types=1);
+
+namespace InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\When;
 
 
-namespace InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\When;
-
-
-use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
-use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
-use InstaFetcher\DataAccess\Dtos\InstaUserDto;
-use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users;
+use InstaFetcher\DataAccess\Dtos\ErrorDto;
+use InstaFetcher\DataAccess\Dtos\ErrorMetaDataDto;
+use InstaFetcher\DataAccess\Http\Exception\GraphExceptions\Exceptions\GraphException;
+use InstaFetcherTests\Unit\DataAccess\Dao\InstaUserDao\Scenarios\GetInstaInfo\Given_User_Tries_To_Fetch_Insta_User_Info;
 use Mockery;
 use Mockery\MockInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * @testdox Given The User Tries To Fetch All Pages And Insta Users, When Pages Are Returned (DataAccess/Dao)
+ * @testdox Given User Tries To Fetch Insta User Info, When Graph Error Occurs (DataAccess/Dao)
  */
-class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users
+class When_Graph_Error_Occurs_Test extends Given_User_Tries_To_Fetch_Insta_User_Info
 {
+
     /**
      * @var ResponseInterface|MockInterface
      */
     protected $mockResponse;
-    protected array $response=["response","fake"];
+    protected array $response=["fake"=>"response"];
 
-    private FacebookPagesDto $pagesDto;
+    private ErrorDto $graphError;
+    private int $statusCode;
 
     public function setUpClassProperties()
     {
         $this->mockResponse = Mockery::mock(ResponseInterface::class);
+        $this->mockResponse
+            ->shouldReceive("getStatusCode")
+            ->andReturns($this->statusCode);
+        $this->mockResponse
+            ->shouldReceive("toArray")
+            ->andReturns($this->response);
         $this->mockHttpClient
             ->shouldReceive("request")
             ->andReturns($this->mockResponse);
-        $this->mockResponse
-            ->shouldReceive("toArray")
-            ->andReturns($this->response);;
-        $this->mockResponse
-            ->shouldReceive("getStatusCode")
-            ->andReturns(200);
-        $this->mockPagesSerializer
+        $this->mockErrorSerializer
             ->shouldReceive("deserialize")
-            ->andReturns($this->pagesDto);
+            ->andReturns($this->graphError);
     }
 
     public function fixtureProvider(): array
     {
+
+        $error = new ErrorDto(new ErrorMetaDataDto("BlahBlah",3213,"message",321321));
+
         return [
             [
-                "token"=>"1111",
-                "pagesDto"=>new FacebookPagesDto(
-                    [
-                        new FacebookPageDto(
-                            "11111",
-                            new InstaUserDto("1234",104,"example_handle")
-                        )
-                    ]
-                )
+                "statusCode"=>400,
+                "graphError"=>$error
+            ],
+            [
+                "statusCode"=>404,
+                "graphError"=>$error
+            ],
+            [
+                "statusCode"=>401,
+                "graphError"=>$error
+            ],
+            [
+                "statusCode"=>403,
+                "graphError"=>$error
             ]
         ];
     }
 
     public function initFixture(array $data)
     {
-        $this->token=$data["token"];
-        $this->pagesDto=$data["pagesDto"];
+        $this->graphError=$data["graphError"];
+        $this->statusCode=$data["statusCode"];
     }
 
     /**
@@ -76,8 +86,8 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
                 "request",
                 [
                     'GET',
-                    "{$this->baseUrl}me/accounts?".
-                    "fields=instagram_business_account{username,followers_count}&".
+                    "{$this->baseUrl}{$this->id}?".
+                    "fields=id,username,followers_count&".
                     "access_token={$this->token}&appsecret_proof=".hash_hmac('sha256', $this->token, $this->appSecret)
                 ]
             );
@@ -114,11 +124,11 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_The_Pages_Were_Attempted_To_Be_Decoded()
+    public function Then_Error_Was_Decoded()
     {
-        $this->mockPagesSerializer
+        $this->mockErrorSerializer
             ->shouldHaveReceived("deserialize",[$this->response]);
-        $this->mockPagesSerializer
+        $this->mockErrorSerializer
             ->shouldHaveReceived("deserialize")
             ->once();
     }
@@ -127,17 +137,18 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_Error_Was_Not_Attempted_To_Be_Decoded()
+    public function Then_User_Was_Not_Decoded()
     {
-        $this->mockErrorSerializer
+        $this->mockUserSerializer
             ->shouldNotHaveReceived("deserialize");
     }
 
     /**
      * @test
      */
-    public function Then_Pages_Are_Returned()
+    public function Then_Graph_Error_Error_Occurs()
     {
-        self::assertEquals($this->pagesDto,$this->pages);
+        self::assertInstanceOf(GraphException::class,$this->exception);
     }
+
 }

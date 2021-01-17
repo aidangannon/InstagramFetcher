@@ -1,29 +1,25 @@
 <?php
-
+declare(strict_types=1);
 
 namespace InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\When;
 
 
-use InstaFetcher\DataAccess\Dtos\FacebookPageDto;
-use InstaFetcher\DataAccess\Dtos\FacebookPagesDto;
-use InstaFetcher\DataAccess\Dtos\InstaUserDto;
+use InstaFetcher\DataAccess\Dtos\Serializers\Exception\ErrorDtoDeserializationError;
 use InstaFetcherTests\Unit\DataAccess\Dao\FacebookPageDao\Scenarios\GetInstaAccounts\Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users;
 use Mockery;
 use Mockery\MockInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * @testdox Given The User Tries To Fetch All Pages And Insta Users, When Pages Are Returned (DataAccess/Dao)
+ * @testdox Given The User Tries To Fetch All Pages And Insta Users, When The Graph Error Occurs And Its Schema Is Invalid (DataAccess/Dao)
  */
-class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users
+class When_Graph_Error_Occurs_And_Schema_Is_Invalid_Test extends Given_User_Tries_To_Fetch_All_Pages_And_Insta_Users
 {
     /**
      * @var ResponseInterface|MockInterface
      */
     protected $mockResponse;
     protected array $response=["response","fake"];
-
-    private FacebookPagesDto $pagesDto;
 
     public function setUpClassProperties()
     {
@@ -32,29 +28,23 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
             ->shouldReceive("request")
             ->andReturns($this->mockResponse);
         $this->mockResponse
-            ->shouldReceive("toArray")
-            ->andReturns($this->response);;
-        $this->mockResponse
             ->shouldReceive("getStatusCode")
-            ->andReturns(200);
-        $this->mockPagesSerializer
+            ->andReturns(400);
+        $this->mockResponse
+            ->shouldReceive("toArray")
+            ->andReturns($this->response);
+        $this->mockErrorSerializer
             ->shouldReceive("deserialize")
-            ->andReturns($this->pagesDto);
+            ->andThrows(new ErrorDtoDeserializationError);
     }
 
     public function fixtureProvider(): array
     {
+        $token = "1111";
+
         return [
             [
-                "token"=>"1111",
-                "pagesDto"=>new FacebookPagesDto(
-                    [
-                        new FacebookPageDto(
-                            "11111",
-                            new InstaUserDto("1234",104,"example_handle")
-                        )
-                    ]
-                )
+                "token"=>$token,
             ]
         ];
     }
@@ -62,7 +52,6 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
     public function initFixture(array $data)
     {
         $this->token=$data["token"];
-        $this->pagesDto=$data["pagesDto"];
     }
 
     /**
@@ -114,11 +103,11 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_The_Pages_Were_Attempted_To_Be_Decoded()
+    public function Then_The_Graph_Error_Was_Attempted_To_Be_Decoded()
     {
-        $this->mockPagesSerializer
+        $this->mockErrorSerializer
             ->shouldHaveReceived("deserialize",[$this->response]);
-        $this->mockPagesSerializer
+        $this->mockErrorSerializer
             ->shouldHaveReceived("deserialize")
             ->once();
     }
@@ -127,17 +116,17 @@ class When_Pages_Are_Returned_Test extends Given_User_Tries_To_Fetch_All_Pages_A
      * @doesNotPerformAssertions
      * @test
      */
-    public function Then_Error_Was_Not_Attempted_To_Be_Decoded()
+    public function Then_Pages_Were_Not_Attempted_To_Be_Decoded()
     {
-        $this->mockErrorSerializer
+        $this->mockPagesSerializer
             ->shouldNotHaveReceived("deserialize");
     }
 
     /**
      * @test
      */
-    public function Then_Pages_Are_Returned()
+    public function Then_Invalid_Schema_Error_Occurs()
     {
-        self::assertEquals($this->pagesDto,$this->pages);
+        self::assertInstanceOf(ErrorDtoDeserializationError::class,$this->exception);
     }
 }
