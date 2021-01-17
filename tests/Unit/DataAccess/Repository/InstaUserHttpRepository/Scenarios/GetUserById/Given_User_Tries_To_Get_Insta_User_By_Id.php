@@ -24,24 +24,4 @@ abstract class Given_User_Tries_To_Get_Insta_User_By_Id extends InstaUserReposit
             $this->exception = $e;
         }
     }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Token_Was_Received_From_Facebook_Session()
-    {
-        $this->mockSession
-            ->shouldHaveReceived("getToken");
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Insta_User_Was_Fetched_With_Correct_Args()
-    {
-        $this->mockUserDao
-            ->shouldHaveReceived("getInstaInfo", [$this->id,$this->token]);
-    }
 }

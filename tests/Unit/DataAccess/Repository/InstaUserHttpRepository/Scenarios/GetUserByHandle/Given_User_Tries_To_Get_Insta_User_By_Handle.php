@@ -24,27 +24,4 @@ abstract class Given_User_Tries_To_Get_Insta_User_By_Handle extends InstaUserRep
             $this->exception = $e;
         }
     }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Token_Were_Received_From_Facebook_Session()
-    {
-        $this->mockSession
-            ->shouldHaveReceived("getToken");
-    }
-
-    /**
-     * @doesNotPerformAssertions
-     * @test
-     */
-    public function Then_Insta_Accounts_Were_Fetched_From_Session_Token()
-    {
-        $this->mockPageDao
-            ->shouldHaveReceived("getInstaAccounts")
-            ->once();
-        $this->mockPageDao
-            ->shouldHaveReceived("getInstaAccounts", [$this->token]);
-    }
 }

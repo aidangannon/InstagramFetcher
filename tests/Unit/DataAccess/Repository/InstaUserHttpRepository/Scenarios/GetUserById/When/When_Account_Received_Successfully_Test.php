@@ -45,6 +45,29 @@ class When_Account_Received_Successfully_Test extends Given_User_Tries_To_Get_In
     }
 
     /**
+     * @doesNotPerformAssertions
+     * @test
+     */
+    public function Then_Token_Was_Received_From_Facebook_Session()
+    {
+        $this->mockSession
+            ->shouldHaveReceived("getToken");
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     * @test
+     */
+    public function Then_Insta_User_Was_Fetched()
+    {
+        $this->mockUserDao
+            ->shouldHaveReceived("getInstaInfo", [$this->id,$this->token]);
+        $this->mockUserDao
+            ->shouldHaveReceived("getInstaInfo")
+            ->once();
+    }
+
+    /**
      * @test
      */
     public function Then_Correct_User_Is_Returned(){
